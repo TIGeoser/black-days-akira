@@ -1,0 +1,858 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Akira Travel · Black Days 2026</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F5F7FD}
+a{color:#1F4BFF}a:hover{color:#0A2BCC}
+html{scroll-behavior:smooth}
+.bd-card{transition:transform .45s cubic-bezier(.2,.7,.2,1),box-shadow .45s ease}
+.bd-card:hover{transform:translateY(-6px);box-shadow:0 26px 50px -22px rgba(31,75,255,.45)}
+.bd-img{background:url(/_blob/e682a1684822930980d7bbfc03a20201) center/cover no-repeat;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+.bd-card:hover .bd-img{transform:scale(1.06)}
+.bd-btn .bd-arrow{transition:transform .3s ease}
+.bd-btn:hover{color:#FFFFFF;filter:brightness(1.12)}
+.bd-btn:hover .bd-arrow{transform:translateX(5px)}
+.bd-nav a:hover{color:#1F4BFF;border-color:#1F4BFF}
+.bd-cta:hover{color:#FFFFFF;filter:brightness(1.15)}
+/* Ondas de fondo: solo transform, loop continuo */
+@keyframes bdWave{from{transform:translateX(0)}to{transform:translateX(-1440px)}}
+@keyframes bdWaveR{from{transform:translateX(-1440px)}to{transform:translateX(0)}}
+.bd-wave,.bd-wave-r{animation-timing-function:linear;animation-iteration-count:infinite;will-change:transform}
+.bd-wave{animation-name:bdWave}
+.bd-wave-r{animation-name:bdWaveR}
+/* Monumentos en línea: trazo que se dibuja + destello que recorre la silueta */
+.bd-draw{stroke-dasharray:1000;stroke-dashoffset:1000;animation:bdDraw 3.2s cubic-bezier(.6,.1,.3,1) .3s forwards}
+@keyframes bdDraw{to{stroke-dashoffset:0}}
+.bd-trace{stroke-dasharray:70 930;stroke-dashoffset:1000;opacity:0;animation-name:bdTrace;animation-timing-function:linear;animation-iteration-count:infinite;animation-fill-mode:both}
+@keyframes bdTrace{0%{stroke-dashoffset:1000;opacity:0}8%{opacity:.85}92%{opacity:.85}100%{stroke-dashoffset:0;opacity:0}}
+@keyframes bdRise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes bdPulse{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes bdDrift{from{transform:scale(1.02) translateX(-0.6%)}to{transform:scale(1.02) translateX(0.6%)}}
+.bd-rise{animation:bdRise .9s cubic-bezier(.2,.7,.2,1) both}
+.bd-pulse{animation:bdPulse 1.6s ease-in-out infinite}
+.bd-drift{animation:bdDrift 9s ease-in-out infinite alternate}
+.bd-ghost{transition:background .25s,border-color .25s,color .25s}
+.bd-ghost:hover{border-color:#1F4BFF !important;color:#1F4BFF !important}
+.bd-panel{animation:bdRise .5s cubic-bezier(.2,.7,.2,1) both;scroll-margin-top:90px}
+.bd-modal{animation:bdFade .3s ease both}
+.bd-modal-box{animation:bdRise .4s cubic-bezier(.2,.7,.2,1) both}
+@keyframes bdFade{from{opacity:0}to{opacity:1}}
+.bd-mlabel{display:none}
+@media (max-width: 1080px){.bd-inc{grid-template-columns:repeat(3,minmax(0,1fr)) !important}}
+@media (max-width: 600px){.bd-inc{grid-template-columns:repeat(2,minmax(0,1fr)) !important}}
+@keyframes bdMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.bd-marquee{display:flex;width:max-content;animation:bdMarquee 90s linear infinite}
+.bd-ticker:hover .bd-marquee{animation-play-state:paused}
+.bd-row{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,.8fr) minmax(0,1.15fr) minmax(0,2fr);gap:18px;align-items:center;padding:12px 0}
+.bd-row-head{padding:16px 0 10px}
+.bd-sec{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.bd-promo-label{display:none !important}
+@media (max-width: 760px){
+.bd-rows{padding-left:18px !important;padding-right:18px !important}
+.bd-row-head{display:none !important}
+.bd-row{grid-template-columns:minmax(0,1fr) auto;gap:10px 14px;padding:14px 0}
+.bd-row > div:nth-child(1){grid-column:1}
+.bd-row > div:nth-child(2){grid-column:2;text-align:right;align-items:flex-end}
+.bd-row .bd-promo{grid-column:1 / -1}
+.bd-row .bd-promo-label{display:block !important}
+.bd-row .bd-sec{grid-column:1 / -1}
+}
+/* Tabla de fechas: filas → bloques en móvil */
+@media (max-width: 760px){
+.bd-table thead{display:none}
+.bd-table,.bd-table tbody,.bd-table tr,.bd-table td{display:block;width:100%}
+.bd-table tr{padding:14px 0;border-bottom:1px solid #E8ECF7;display:grid !important;grid-template-columns:1fr 1fr;gap:10px 16px}
+.bd-table td{padding:0 !important;border:0 !important;text-align:left !important}
+.bd-table td:nth-child(1),.bd-table td:nth-child(2){grid-column:span 1}
+.bd-mlabel{display:block;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#5A6488;margin-bottom:2px}
+}
+@media (prefers-reduced-motion: reduce){.bd-marquee,.bd-panel,.bd-modal,.bd-modal-box,.bd-rise,.bd-pulse,.bd-drift,.bd-wave,.bd-wave-r,.bd-draw{animation:none}.bd-draw{stroke-dashoffset:0}.bd-trace{display:none}.bd-card,.bd-img{transition:none}}
+</style>
+</helmet>
+<div style="font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif; color: #0A0F2C; background: #F5F7FD; min-height: 100%; display: flex; flex-direction: column">
+
+<!-- ============ CINTA SUPERIOR DE PROMOCIÓN ============ -->
+<div class="bd-ticker" role="marquee" aria-label="Black Friday Akira Travel: 50% de descuento en el segundo pasajero en la porción terrestre" style="background: #060A24; border-bottom: 1px solid rgba(127,162,255,.22); overflow: hidden; padding: 12px 0">
+<div class="bd-marquee" aria-hidden="true" style="color: #FFFFFF; font-size: 15px; font-weight: 300; letter-spacing: .14em; white-space: nowrap">
+<span style="display: inline-flex; align-items: center; gap: 96px; padding-right: 96px"><span>BLACK FRIDAY AKIRA TRAVEL</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7FA2FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path></svg><span style="color: #FFD84D">50% DTO. EN EL SEGUNDO PASAJERO EN LA PORCIÓN TERRESTRE*</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7FA2FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path></svg></span><span style="display: inline-flex; align-items: center; gap: 96px; padding-right: 96px"><span>BLACK FRIDAY AKIRA TRAVEL</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7FA2FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path></svg><span style="color: #FFD84D">50% DTO. EN EL SEGUNDO PASAJERO EN LA PORCIÓN TERRESTRE*</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7FA2FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path></svg></span><span style="display: inline-flex; align-items: center; gap: 96px; padding-right: 96px"><span>BLACK FRIDAY AKIRA TRAVEL</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7FA2FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path></svg><span style="color: #FFD84D">50% DTO. EN EL SEGUNDO PASAJERO EN LA PORCIÓN TERRESTRE*</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7FA2FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path></svg></span><span style="display: inline-flex; align-items: center; gap: 96px; padding-right: 96px"><span>BLACK FRIDAY AKIRA TRAVEL</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7FA2FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path></svg><span style="color: #FFD84D">50% DTO. EN EL SEGUNDO PASAJERO EN LA PORCIÓN TERRESTRE*</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7FA2FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path></svg></span><span style="display: inline-flex; align-items: center; gap: 96px; padding-right: 96px"><span>BLACK FRIDAY AKIRA TRAVEL</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7FA2FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path></svg><span style="color: #FFD84D">50% DTO. EN EL SEGUNDO PASAJERO EN LA PORCIÓN TERRESTRE*</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7FA2FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path></svg></span><span style="display: inline-flex; align-items: center; gap: 96px; padding-right: 96px"><span>BLACK FRIDAY AKIRA TRAVEL</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7FA2FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path></svg><span style="color: #FFD84D">50% DTO. EN EL SEGUNDO PASAJERO EN LA PORCIÓN TERRESTRE*</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7FA2FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path></svg></span>
+</div>
+</div>
+
+<!-- ============ SECCIÓN 1 · HERO + CAMPAÑA (azul oscuro) ============ -->
+<header id="inicio" style="position: relative; background: #060A24; color: #FFFFFF">
+<div style="position: relative; width: 100%; background: #000000; overflow: hidden">
+<div style="position: relative; max-width: 1600px; margin: 0 auto; overflow: hidden">
+<a href="https://akiratravel.com/" target="_blank" rel="noopener" aria-label="Ir al inicio de Akira Travel" style="position: absolute; z-index: 2; top: 5%; left: 50%; transform: translateX(-50%); width: clamp(110px, 12vw, 210px); display: block"><img src="/_blob/2ebbca9e03c5e2cbf9c333e2d889fe5d" alt="Akira Travel" style="display: block; width: 100%; height: auto"></a>
+<img class="bd-drift" src="/_blob/324656a3e6987e979dc68ddd7e16cdc3" alt="Black Days · Akira Travel" width="1920" height="500" style="display: block; width: 100%; height: auto">
+</div>
+</div>
+<div style="border-top: 1px solid rgba(127,162,255,.22)">
+<div style="max-width: 1320px; margin: 0 auto; padding: 26px 40px 28px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px 48px">
+<div class="bd-rise" style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 14px; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; color: #8FADFF">Campaña Black Days</span>
+<span style="font-size: clamp(1.75rem, 3vw, 2.25rem); font-weight: 700; line-height: 1.1; letter-spacing: -.01em; color: #FFFFFF">9 — 27 NOV 2026</span>
+<span style="font-size: 17px; font-weight: 400; color: #C3CDEB">Promociones para agencias de viajes</span>
+</div>
+<div class="bd-rise" style="flex: 1.6 1 420px; display: flex; flex-direction: column; gap: 8px; animation-delay: .15s; padding: 0 0 0 0">
+<sc-if value="{{isLive}}" hint-placeholder-val="{{ true }}">
+<span style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: #C3CDEB"><span class="bd-pulse" style="width: 7px; height: 7px; border-radius: 50%; background: #FF4D55; display: inline-block"></span>La promoción termina en</span>
+<div style="display: flex; gap: 8px; width: 100%">
+<sc-for list="{{units}}" as="u" hint-placeholder-count="4">
+<div style="flex: 1 1 0; min-width: 50px; padding: 6px 0 5px; border-radius: 10px; background: #0F1745; border: 1px solid rgba(127,162,255,.35); display: flex; flex-direction: column; align-items: center; gap: 2px">
+<span style="font-size: clamp(1.35rem, 1.9vw, 1.7rem); font-weight: 600; line-height: 1.1; color: #FFFFFF">{{u.value}}</span>
+<span style="font-size: 12px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: #A9BBEE">{{u.label}}</span>
+</div>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{isBefore}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; align-items: center; gap: 12px; width: 100%; box-sizing: border-box; padding: 16px 22px; border-radius: 14px; background: #0F1745; border: 1px solid rgba(127,162,255,.35)">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8FADFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>
+<span style="font-size: 17px; font-weight: 600; color: #FFFFFF">La promoción comienza el {{startLabel}}</span>
+</div>
+</sc-if>
+<sc-if value="{{isOver}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; align-items: center; gap: 12px; width: 100%; box-sizing: border-box; padding: 16px 22px; border-radius: 14px; background: #0F1745; border: 1px solid rgba(127,162,255,.25)">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A9BBEE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+<span style="font-size: 17px; font-weight: 600; color: #FFFFFF">La promoción Black Days ha finalizado</span>
+</div>
+</sc-if>
+</div>
+<a class="bd-cta bd-rise" href="#promociones" style="flex: 0 0 auto; animation-delay: .3s; display: inline-flex; justify-content: center; align-items: center; gap: 10px; min-height: 54px; padding: 0 30px; border-radius: 999px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 17px; letter-spacing: .01em">Ver promociones
+<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"></path></svg>
+</a>
+</div>
+</div>
+</header>
+
+<!-- ============ SECCIÓN 2 · TODOS NUESTROS DESTINOS INCLUYEN (una fila) ============ -->
+<section aria-labelledby="incluye-titulo" style="background: #FFFFFF">
+<div style="max-width: 1320px; margin: 0 auto; padding: 22px 40px 24px; display: flex; flex-direction: column; gap: 14px">
+<h2 id="incluye-titulo" style="margin: 0; font-size: 17px; font-weight: 600; line-height: 1.3; color: #1F4BFF">Los destinos incluyen:</h2>
+<ul class="bd-inc" style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px 28px; align-items: center">
+<li style="display: flex; align-items: center; gap: 10px; min-width: 0">
+<span style="flex-shrink: 0; width: 38px; height: 38px; border-radius: 11px; background: #EEF2FF; color: #1F4BFF; display: flex; align-items: center; justify-content: center"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path></svg></span>
+<span style="font-size: 17px; font-weight: 500; line-height: 1.3; color: #0A0F2C">Tiquetes</span>
+</li>
+<li style="display: flex; align-items: center; gap: 10px; min-width: 0">
+<span style="flex-shrink: 0; width: 38px; height: 38px; border-radius: 11px; background: #EEF2FF; color: #1F4BFF; display: flex; align-items: center; justify-content: center"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8M2 16h20M6 10V7a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3M12 10V7a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"></path></svg></span>
+<span style="font-size: 17px; font-weight: 500; line-height: 1.3; color: #0A0F2C">Alojamiento</span>
+</li>
+<li style="display: flex; align-items: center; gap: 10px; min-width: 0">
+<span style="flex-shrink: 0; width: 38px; height: 38px; border-radius: 11px; background: #EEF2FF; color: #1F4BFF; display: flex; align-items: center; justify-content: center"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 8h1a4 4 0 1 1 0 8h-1M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4zM6 2v2M10 2v2M14 2v2"></path></svg></span>
+<span style="font-size: 17px; font-weight: 500; line-height: 1.3; color: #0A0F2C">Desayunos</span>
+</li>
+<li style="display: flex; align-items: center; gap: 10px; min-width: 0">
+<span style="flex-shrink: 0; width: 38px; height: 38px; border-radius: 11px; background: #EEF2FF; color: #1F4BFF; display: flex; align-items: center; justify-content: center"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6v6M15 6v6M2 12h19.6M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3"></path><circle cx="7" cy="18" r="2"></circle><path d="M9 18h5"></path><circle cx="16" cy="18" r="2"></circle></svg></span>
+<span style="font-size: 17px; font-weight: 500; line-height: 1.3; color: #0A0F2C">Traslados de llegada y salida</span>
+</li>
+<li style="display: flex; align-items: center; gap: 10px; min-width: 0">
+<span style="flex-shrink: 0; width: 38px; height: 38px; border-radius: 11px; background: #EEF2FF; color: #1F4BFF; display: flex; align-items: center; justify-content: center"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"></path><path d="M3.2 12H8l1.5-3 3 6 1.5-3h6.8"></path></svg></span>
+<span style="font-size: 17px; font-weight: 500; line-height: 1.3; color: #0A0F2C">Asistencia médica</span>
+</li>
+<li style="display: flex; align-items: center; gap: 10px; min-width: 0">
+<span style="flex-shrink: 0; width: 38px; height: 38px; border-radius: 11px; background: #EEF2FF; color: #1F4BFF; display: flex; align-items: center; justify-content: center"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></span>
+<span style="font-size: 17px; font-weight: 500; line-height: 1.3; color: #0A0F2C">Guía local</span>
+</li>
+</ul>
+</div>
+</section>
+
+<!-- ============ NAVEGACIÓN DE CATEGORÍAS (sticky) ============ -->
+<nav id="promociones" class="bd-nav" aria-label="Destinos" style="position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.9); backdrop-filter: blur(12px); border-top: 1px solid #E8ECF7; border-bottom: 1px solid #E8ECF7">
+<div style="max-width: 1320px; margin: 0 auto; padding: 12px 40px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+<span style="font-size: 14px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: #4A5578; margin-right: 8px">Destinos</span>
+<a href="#europa" style="display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 20px; border-radius: 999px; border: 1px solid #D6DCEC; color: #0A0F2C; text-decoration: none; font-weight: 600; font-size: 16px; letter-spacing: .06em">EUROPA <span style="font-size: 17px; font-weight: 600; color: #1F4BFF">{{europaCount}}</span></a>
+<a href="#tailandia" style="display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 20px; border-radius: 999px; border: 1px solid #D6DCEC; color: #0A0F2C; text-decoration: none; font-weight: 600; font-size: 16px; letter-spacing: .06em">TAILANDIA <span style="font-size: 17px; font-weight: 600; color: #1F4BFF">{{tailandiaCount}}</span></a>
+<a href="#turquia" style="display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 20px; border-radius: 999px; border: 1px solid #D6DCEC; color: #0A0F2C; text-decoration: none; font-weight: 600; font-size: 16px; letter-spacing: .06em">TURQUÍA <span style="font-size: 17px; font-weight: 600; color: #1F4BFF">{{turquiaCount}}</span></a>
+</div>
+</nav>
+
+<!-- ============ CATEGORÍA 01 · EUROPA (Torre Eiffel en línea) ============ -->
+<section id="europa" style="position: relative; background: #F5F7FD; padding: 96px 0 136px; overflow: hidden">
+<svg aria-hidden="true" viewBox="0 0 1440 600" preserveAspectRatio="none" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none">
+<g class="bd-wave" style="animation-duration: 74s"><path d="M0 120 C240 70 480 70 720 120 S1200 170 1440 120 S1920 70 2160 120 S2640 170 2880 120" fill="none" stroke="#1F4BFF" stroke-opacity="0.07" stroke-width="1" vector-effect="non-scaling-stroke"></path></g>
+<g class="bd-wave-r" style="animation-duration: 62s"><path d="M0 260 C240 190 480 190 720 260 S1200 330 1440 260 S1920 190 2160 260 S2640 330 2880 260" fill="none" stroke="#1F4BFF" stroke-opacity="0.1" stroke-width="1" vector-effect="non-scaling-stroke"></path></g>
+<g class="bd-wave" style="animation-duration: 80s"><path d="M0 420 C240 360 480 360 720 420 S1200 480 1440 420 S1920 360 2160 420 S2640 480 2880 420" fill="none" stroke="#1F4BFF" stroke-opacity="0.06" stroke-width="1" vector-effect="non-scaling-stroke"></path></g>
+<g class="bd-wave-r" style="animation-duration: 68s"><path d="M0 540 C240 460 480 460 720 540 S1200 620 1440 540 S1920 460 2160 540 S2640 620 2880 540" fill="none" stroke="#1F4BFF" stroke-opacity="0.08" stroke-width="1" vector-effect="non-scaling-stroke"></path></g>
+</svg>
+<div style="position: relative; max-width: 1320px; margin: 0 auto; padding: 0 40px; display: flex; flex-direction: column; gap: 56px">
+<div style="position: relative; min-height: 250px; display: flex; flex-direction: column; justify-content: flex-end; gap: 8px; padding-bottom: 34px">
+<svg class="bd-mono" aria-hidden="true" viewBox="0 0 1120 250" preserveAspectRatio="xMaxYMax slice" style="position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 250px; pointer-events: none">
+<path class="bd-draw" pathLength="1000" d="M934 166 L986 166 M944 148 L976 148 M953 100 L967 100 M955 72 L965 72" fill="none" stroke="#1F4BFF" stroke-opacity="0.30400000000000005" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path>
+<path class="bd-draw" pathLength="1000" d="M0 238 C240 230 460 248 700 238 S860 234 884 240 C904 222 920 200 928 180 L918 180 L918 174 L1002 174 L1002 180 L992 180 C1000 200 1016 222 1036 240 L1015 240 Q960 168 905 240 M1036 240 C1060 242 1090 236 1120 238" fill="none" stroke="#1F4BFF" stroke-opacity="0.38" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path>
+<path class="bd-trace" pathLength="1000" d="M0 238 C240 230 460 248 700 238 S860 234 884 240 C904 222 920 200 928 180 L918 180 L918 174 L1002 174 L1002 180 L992 180 C1000 200 1016 222 1036 240 L1015 240 Q960 168 905 240 M1036 240 C1060 242 1090 236 1120 238" fill="none" stroke="#1F4BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" style="animation-duration: 11s; animation-delay: 2.6s"></path>
+<path class="bd-draw" pathLength="1000" d="M930 174 C940 152 946 136 948 120 L940 120 L940 115 L980 115 L980 120 L972 120 C974 136 980 152 990 174 M950 115 C954 90 956 62 957 42 L953 42 L953 37 L967 37 L967 42 L963 42 C964 62 966 90 970 115 M960 37 L960 8" fill="none" stroke="#1F4BFF" stroke-opacity="0.38" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path>
+<path class="bd-trace" pathLength="1000" d="M930 174 C940 152 946 136 948 120 L940 120 L940 115 L980 115 L980 120 L972 120 C974 136 980 152 990 174 M950 115 C954 90 956 62 957 42 L953 42 L953 37 L967 37 L967 42 L963 42 C964 62 966 90 970 115 M960 37 L960 8" fill="none" stroke="#1F4BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" style="animation-duration: 14s; animation-delay: 4.0s"></path>
+</svg>
+<span style="position: relative; font-size: 14px; font-weight: 600; letter-spacing: .24em; color: #1F4BFF">01 · BLACK DAYS</span>
+<h2 style="position: relative; margin: 0; font-family: 'Anton', Impact, sans-serif; font-weight: 400; font-size: clamp(3rem, 6vw, 4.6rem); line-height: .95; letter-spacing: .01em; color: #0A0F2C">EUROPA</h2>
+<div class="bd-pitch" style="position: relative; display: flex; flex-direction: column; gap: 10px; max-width: 680px; margin-top: 12px"><span aria-hidden="true" style="width: 56px; height: 4px; border-radius: 2px; background: #FF4D55"></span><p style="margin: 0; font-size: 30px; font-weight: 700; line-height: 1.2; letter-spacing: -.015em; color: #1236C8">¡Agencias, aprovechen estas salidas especiales!</p><p style="margin: 0; font-size: 18px; font-weight: 500; line-height: 1.5; color: #2A3560">9 programas con salidas en abril de 2027 desde Bogotá y Medellín: las mejores oportunidades para cerrar más ventas están aquí.</p></div>
+<span style="position: relative; font-size: 17px; font-weight: 500; color: #4A5578">{{europaPaquetesTxt}}</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: 72px 56px">
+<sc-for list="{{europa}}" as="p" hint-placeholder-count="9">
+<article class="bd-card" style="position: relative; display: flex; flex-direction: column; border-radius: 22px; overflow: hidden; background: #FFFFFF; color: #0A0F2C; border: 2px solid {{p.ring}}; box-shadow: 0 10px 30px -18px rgba(10,15,44,.35)">
+<div style="position: relative; height: 262px; overflow: hidden; background: #0A0F2C">
+<sc-if value="{{p.hasFoto}}" hint-placeholder-val="{{ true }}">
+<img class="bd-img" src="{{p.foto}}" alt="{{p.nombre}}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block">
+</sc-if>
+<sc-if value="{{p.noFoto}}" hint-placeholder-val="{{ false }}">
+<div class="bd-img bd-ph" role="img" aria-label="Imagen provisional · {{p.nombre}}" style="position: absolute; inset: 0"></div>
+<span style="position: absolute; top: 96px; left: 0; right: 0; text-align: center; font-size: 14px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.75)">Imagen provisional</span>
+</sc-if>
+<div style="position: absolute; top: 14px; left: 14px; display: flex; flex-direction: column; align-items: flex-start; gap: 6px">
+<sc-if value="{{p.showNew}}" hint-placeholder-val="{{ false }}">
+<span style="padding: 4px 10px; border-radius: 8px; background: #FFD84D; color: #0A0F2C; font-size: 14px; font-weight: 700; letter-spacing: .06em">NUEVO · PROPUESTA</span>
+</sc-if>
+<sc-if value="{{p.hasUrgency}}" hint-placeholder-val="{{ false }}">
+<span style="display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 999px; background: #FF4D55; color: #FFFFFF; font-size: 14px; font-weight: 600"><span class="bd-pulse" style="width: 6px; height: 6px; border-radius: 50%; background: #FFFFFF; display: inline-block"></span>{{p.urgency}}</span>
+</sc-if>
+</div>
+<div class="bd-off" style="position: absolute; top: 12px; right: 12px; width: 104px; padding: 8px 6px 7px; border-radius: 14px; background: #FFFFFF; text-align: center; line-height: 1; box-shadow: 0 8px 20px -10px rgba(0,0,0,.5)">
+<div style="display: flex; align-items: flex-start; justify-content: center; color: #E3141B; font-weight: 800"><span style="font-size: 34px; letter-spacing: -.03em">50</span><span style="font-size: 16px; margin-top: 3px">%</span><span style="font-size: 11px; margin: 5px 0 0 3px">DTO.</span></div>
+<div style="margin-top: 5px; padding: 3px 4px; border-radius: 6px; background: #E3141B; color: #FFFFFF; font-size: 10px; font-weight: 700; line-height: 1.15">En el 2.º pasajero</div>
+<div style="margin-top: 4px; font-size: 9px; font-weight: 500; color: #0A0F2C; line-height: 1.15">En la porción terrestre*</div>
+</div>
+<div class="bd-glass" style="position: absolute; left: 10px; right: 10px; bottom: 10px; padding: 11px 14px 12px; border-radius: 16px; background: rgba(241,243,248,.80); backdrop-filter: blur(14px) saturate(1.4); -webkit-backdrop-filter: blur(14px) saturate(1.4); border: 1px solid rgba(255,255,255,.65); box-shadow: 0 10px 28px -14px rgba(6,10,36,.55); display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 8px 10px; color: #0A0F2C">
+<div style="display: flex; flex-direction: column; align-items: flex-start; gap: 5px; min-width: 0">
+<span style="display: inline-flex; align-items: center; gap: 5px; padding: 4px 9px; border-radius: 999px; background: {{accent}}; color: #FFFFFF; font-size: 14px; font-weight: 700; letter-spacing: .05em; white-space: nowrap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"></circle><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"></path><circle cx="17" cy="9" r="2.6"></circle><path d="M16 14.6c2.9.2 5 2.2 5 5.4"></path></svg>PARA 2 PERSONAS</span>
+<span style="font-size: 17px; font-weight: 500; color: #4A5578; white-space: nowrap">Antes <span style="text-decoration: line-through; text-decoration-thickness: 1.5px">{{p.refTxt}}</span></span>
+</div>
+<div style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left">
+<span style="font-size: 14px; font-weight: 700; letter-spacing: .08em; color: #4A5578">DESDE USD</span>
+<span style="font-size: clamp(2.2rem, 3.2vw, 2.6rem); font-weight: 700; line-height: .95; letter-spacing: -.02em; color: #1236C8">{{p.desdeTxt}}</span>
+</div>
+</div>
+</div>
+<div style="flex-grow: 1; padding: 16px 20px 20px; display: flex; flex-direction: column; gap: 11px">
+<h3 style="margin: 0; font-size: 25px; font-weight: 600; line-height: 1.25; letter-spacing: -.01em; color: #0A0F2C">{{p.nombre}}</h3>
+<div style="display: flex; align-items: center; align-self: flex-start; gap: 10px; padding: 6px 12px; border-radius: 999px; border: 1px solid #C9D3F2; font-size: 17px; font-weight: 500; color: #1A2A6B">
+<span style="display: inline-flex; align-items: center; gap: 6px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>{{p.dias}} Días</span>
+<span style="width: 1px; height: 13px; background: #C9D3F2"></span>
+<span style="display: inline-flex; align-items: center; gap: 6px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>{{p.nochesTxt}} Noches</span>
+</div>
+<sc-if value="{{p.hasRecorrido}}" hint-placeholder-val="{{ true }}">
+<p style="margin: 0; font-size: 16px; line-height: 1.5; color: #4A5578"><span style="font-weight: 600; color: #1F4BFF">Recorriendo: </span>{{p.ciudadesRecorrido}}</p>
+</sc-if>
+<div style="display: flex; flex-direction: column; gap: 3px; font-size: 17px; color: #4A5578">
+<span style="display: flex; align-items: flex-start; gap: 7px; font-weight: 500"><svg style="flex-shrink: 0; margin-top: 2px" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1F4BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path></svg>Salidas desde {{p.ciudadesTxt}}</span>
+<span style="display: flex; align-items: center; gap: 7px"><svg style="flex-shrink: 0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1F4BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>{{p.totalTxt}} · {{p.rangoTxt}}</span>
+</div>
+<div style="margin-top: auto; display: flex; flex-direction: column; gap: 10px; padding-top: 4px">
+<div style="display: flex; gap: 8px">
+<button class="bd-ghost" type="button" onClick="{{p.toggle}}" aria-expanded="{{p.expanded}}" style="flex: 1 1 0; min-height: 46px; padding: 0 12px; border-radius: 999px; border: 1.5px solid {{p.datesBorder}}; background: {{p.datesBg}}; color: {{p.datesColor}}; font-family: inherit; font-size: 17px; font-weight: 600; cursor: pointer">{{p.datesLabel}}</button>
+<button class="bd-ghost" type="button" onClick="{{p.openFlyer}}" style="flex: 1 1 0; min-height: 46px; padding: 0 12px; border-radius: 999px; border: 1.5px solid #C9D3F2; background: #FFFFFF; color: #0A0F2C; font-family: inherit; font-size: 17px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 7px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"></rect><circle cx="9.5" cy="9" r="1.5"></circle><path d="M20 15l-4-4-9 10"></path></svg>Ver flyer</button>
+</div>
+<a class="bd-btn" href="{{p.akiclic}}" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; border-radius: 999px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 17px">Ir a Akiclic <svg class="bd-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+</div>
+</div>
+</article>
+</sc-for>
+</div>
+<sc-if value="{{euOpen}}" hint-placeholder-val="{{ false }}">
+<div id="bd-panel-eu" class="bd-panel" role="region" aria-label="Fechas de salida · {{euPanel.nombre}}" style="position: relative; margin-top: 28px; border-radius: 22px; background: #FFFFFF; color: #0A0F2C; border: 1px solid #D6DFFB; box-shadow: 0 24px 60px -30px rgba(10,15,44,.45); overflow: hidden">
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 28px; background: #060A24; color: #FFFFFF">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 14px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: #8FADFF">Fechas y tarifas</span>
+<span style="font-size: clamp(1.25rem, 2vw, 1.6rem); font-weight: 700; line-height: 1.2">{{euPanel.nombre}}</span>
+<span style="font-size: 17px; color: #C3CDEB">{{euPanel.resumen}}</span>
+</div>
+<button type="button" onClick="{{closePanel}}" aria-label="Cerrar fechas" style="width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,.3); background: transparent; color: #FFFFFF; cursor: pointer; display: inline-flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+</div>
+<sc-if value="{{euPanel.hasRecorrido}}" hint-placeholder-val="{{ true }}">
+<div style="margin: 18px 28px 0; padding: 14px 18px; border-radius: 14px; background: #F5F7FD; border: 1px solid #E2E7F5; font-size: 17px; line-height: 1.6; color: #1A2A6B"><span style="display: block; font-size: 14px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #1F4BFF; margin-bottom: 2px">Recorrido</span>{{euPanel.recorrido}}</div>
+</sc-if>
+<div style="padding: 18px 28px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+<span style="font-size: 14px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: #5A6488; margin-right: 4px">Ciudad de salida</span>
+<sc-for list="{{euPanel.tabs}}" as="tb" hint-placeholder-count="2">
+<button type="button" onClick="{{tb.select}}" aria-pressed="{{tb.pressed}}" style="display: inline-flex; align-items: center; gap: 8px; min-height: 42px; padding: 0 16px; border-radius: 999px; border: 1.5px solid {{tb.border}}; background: {{tb.bg}}; color: {{tb.fg}}; font-family: inherit; font-size: 17px; font-weight: 600; cursor: pointer">{{tb.label}} <span style="font-size: 14px; font-weight: 600; opacity: .75">{{tb.count}}</span></button>
+</sc-for>
+</div>
+<div class="bd-rows" style="padding: 8px 28px 24px">
+<div class="bd-row bd-row-head" style="font-size: 14px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #5A6488; border-bottom: 1.5px solid #0A0F2C">
+<span>Salida → Regreso</span><span>Ruta</span><span style="color: #1F4BFF">Para 2 personas</span><span>Otras acomodaciones</span>
+</div>
+<sc-for list="{{euPanel.meses}}" as="mo" hint-placeholder-count="2">
+<div style="padding: 18px 0 6px; font-size: 14px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #1F4BFF">{{mo.label}}</div>
+<sc-for list="{{mo.rows}}" as="r" hint-placeholder-count="3">
+<div class="bd-row" style="border-bottom: 1px solid #E8ECF7">
+<div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+<span style="font-size: 17px; font-weight: 600; color: #0A0F2C">{{r.salida}}</span>
+<span style="font-size: 17px; color: #5A6488">Regreso {{r.regreso}} · {{r.dias}} días</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
+<span style="font-size: 17px; font-weight: 600; letter-spacing: .04em; color: #1A2A6B">{{r.ruta}}</span>
+<sc-if value="{{r.showFlag}}" hint-placeholder-val="{{ false }}">
+<span title="{{r.flag}}" style="align-self: flex-start; padding: 2px 8px; border-radius: 6px; background: #FFF1C2; color: #7A5200; font-size: 14px; font-weight: 700">⚠ Pendiente confirmar</span>
+</sc-if>
+</div>
+<div class="bd-promo" style="display: flex; flex-direction: column; gap: 0; padding: 8px 12px; border-radius: 12px; background: #F1F4FF">
+<span class="bd-promo-label" style="font-size: 14px; font-weight: 700; letter-spacing: .1em; color: #1F4BFF">PARA 2 PERSONAS</span>
+<span style="font-size: 17px; color: #7A84A6; text-decoration: line-through">{{r.ref}}</span>
+<span style="font-size: 22px; font-weight: 700; line-height: 1.15; color: #1F4BFF">{{r.promo}}</span>
+</div>
+<div class="bd-sec">
+<div style="display: flex; flex-direction: column; gap: 1px"><span style="font-size: 14px; font-weight: 500; color: #5A6488">Triple · 3 pers.</span><span style="font-size: 17px; font-weight: 500; color: #0A0F2C">{{r.tpl}}</span></div>
+<div style="display: flex; flex-direction: column; gap: 1px"><span style="font-size: 14px; font-weight: 500; color: #5A6488">Niño · 1 pers.</span><span style="font-size: 17px; font-weight: 500; color: #0A0F2C">{{r.chd}}</span></div>
+<div style="display: flex; flex-direction: column; gap: 1px"><span style="font-size: 14px; font-weight: 500; color: #5A6488">Sencilla · 1 pers.</span><span style="font-size: 17px; font-weight: 500; color: #0A0F2C">{{r.sgl}}</span></div>
+</div>
+</div>
+</sc-for>
+</sc-for>
+</div>
+</div>
+</sc-if>
+</div>
+</section>
+
+<!-- ============ CATEGORÍA 02 · TAILANDIA (templo en línea) ============ -->
+<section id="tailandia" style="background: #FFFCEE; padding: 120px 0 136px">
+<div style="max-width: 1320px; margin: 0 auto; padding: 0 40px">
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: 72px 56px; align-items: stretch">
+<div style="display: flex; flex-direction: column; justify-content: space-between; gap: 20px; padding: 6px 6px 6px 0">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 14px; font-weight: 600; letter-spacing: .24em; color: #1F4BFF">02 · BLACK DAYS</span>
+<h2 style="margin: 0; font-family: 'Anton', Impact, sans-serif; font-weight: 400; font-size: clamp(2.6rem, 4.4vw, 3.6rem); line-height: 1; letter-spacing: .01em; white-space: nowrap; color: #0A0F2C">TAILANDIA</h2>
+<div class="bd-pitch" style="position: relative; display: flex; flex-direction: column; gap: 10px; max-width: 100%; margin-top: 12px"><span aria-hidden="true" style="width: 56px; height: 4px; border-radius: 2px; background: #FF4D55"></span><p style="margin: 0; font-size: 25px; font-weight: 300; line-height: 1.2; letter-spacing: -.01em; color: #1236C8">¡Agencias, últimos cupos disponibles!</p><p style="margin: 0; font-size: 18px; font-weight: 500; line-height: 1.5; color: #2A3560">Salidas desde Bogotá el 19 de enero de 2027.</p></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="position: relative; width: 100%; height: 200px">
+<svg class="bd-mono" aria-hidden="true" viewBox="0 0 320 200" preserveAspectRatio="xMidYMax meet" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none">
+<path class="bd-draw" pathLength="1000" d="M80 116 L80 104 Q82 98 86 100 M52 136 L80 114 L108 136 M70 190 L70 170 Q80 160 90 170 L90 190 M190 116 L210 116 M192 106 L208 106 M196 84 L204 84" fill="none" stroke="#1F4BFF" stroke-opacity="0.336" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path>
+<path class="bd-draw" pathLength="1000" d="M0 190 C50 186 110 194 160 190 L160 178 L170 178 L170 168 L172 168 C172 140 186 126 194 122 L194 112 L200 40 L206 112 L206 122 C214 126 228 140 228 168 L230 168 L230 178 L240 178 L240 190 C270 188 296 192 320 190" fill="none" stroke="#1F4BFF" stroke-opacity="0.42" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path>
+<path class="bd-trace" pathLength="1000" d="M0 190 C50 186 110 194 160 190 L160 178 L170 178 L170 168 L172 168 C172 140 186 126 194 122 L194 112 L200 40 L206 112 L206 122 C214 126 228 140 228 168 L230 168 L230 178 L240 178 L240 190 C270 188 296 192 320 190" fill="none" stroke="#1F4BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" style="animation-duration: 9s; animation-delay: 2.6s"></path>
+<path class="bd-draw" pathLength="1000" d="M24 158 Q30 156 34 152 L80 116 L126 152 Q130 156 136 158 M44 152 L44 190 M116 152 L116 190" fill="none" stroke="#1F4BFF" stroke-opacity="0.42" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path>
+<path class="bd-trace" pathLength="1000" d="M24 158 Q30 156 34 152 L80 116 L126 152 Q130 156 136 158 M44 152 L44 190 M116 152 L116 190" fill="none" stroke="#1F4BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" style="animation-duration: 12s; animation-delay: 4.0s"></path>
+</svg>
+</div>
+<span style="font-size: 17px; font-weight: 500; color: #0A0F2C; padding-top: 8px">{{tailandiaPaquetesTxt}}</span>
+<a href="#turquia" style="font-size: 17px; font-weight: 600; color: #1F4BFF; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; min-height: 44px">Siguiente: Turquía <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"></path></svg></a>
+</div>
+</div>
+<sc-for list="{{tailandia}}" as="p" hint-placeholder-count="2">
+<article class="bd-card" style="position: relative; display: flex; flex-direction: column; border-radius: 22px; overflow: hidden; background: #FFFFFF; color: #0A0F2C; border: 2px solid {{p.ring}}; box-shadow: 0 10px 30px -18px rgba(10,15,44,.35)">
+<div style="position: relative; height: 262px; overflow: hidden; background: #0A0F2C">
+<sc-if value="{{p.hasFoto}}" hint-placeholder-val="{{ true }}">
+<img class="bd-img" src="{{p.foto}}" alt="{{p.nombre}}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block">
+</sc-if>
+<sc-if value="{{p.noFoto}}" hint-placeholder-val="{{ false }}">
+<div class="bd-img bd-ph" role="img" aria-label="Imagen provisional · {{p.nombre}}" style="position: absolute; inset: 0"></div>
+<span style="position: absolute; top: 96px; left: 0; right: 0; text-align: center; font-size: 14px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.75)">Imagen provisional</span>
+</sc-if>
+<div style="position: absolute; top: 14px; left: 14px; display: flex; flex-direction: column; align-items: flex-start; gap: 6px">
+<sc-if value="{{p.showNew}}" hint-placeholder-val="{{ false }}">
+<span style="padding: 4px 10px; border-radius: 8px; background: #FFD84D; color: #0A0F2C; font-size: 14px; font-weight: 700; letter-spacing: .06em">NUEVO · PROPUESTA</span>
+</sc-if>
+<sc-if value="{{p.hasUrgency}}" hint-placeholder-val="{{ false }}">
+<span style="display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 999px; background: #FF4D55; color: #FFFFFF; font-size: 14px; font-weight: 600"><span class="bd-pulse" style="width: 6px; height: 6px; border-radius: 50%; background: #FFFFFF; display: inline-block"></span>{{p.urgency}}</span>
+</sc-if>
+</div>
+<div class="bd-off" style="position: absolute; top: 12px; right: 12px; width: 104px; padding: 8px 6px 7px; border-radius: 14px; background: #FFFFFF; text-align: center; line-height: 1; box-shadow: 0 8px 20px -10px rgba(0,0,0,.5)">
+<div style="display: flex; align-items: flex-start; justify-content: center; color: #E3141B; font-weight: 800"><span style="font-size: 34px; letter-spacing: -.03em">50</span><span style="font-size: 16px; margin-top: 3px">%</span><span style="font-size: 11px; margin: 5px 0 0 3px">DTO.</span></div>
+<div style="margin-top: 5px; padding: 3px 4px; border-radius: 6px; background: #E3141B; color: #FFFFFF; font-size: 10px; font-weight: 700; line-height: 1.15">En el 2.º pasajero</div>
+<div style="margin-top: 4px; font-size: 9px; font-weight: 500; color: #0A0F2C; line-height: 1.15">En la porción terrestre*</div>
+</div>
+<div class="bd-glass" style="position: absolute; left: 10px; right: 10px; bottom: 10px; padding: 11px 14px 12px; border-radius: 16px; background: rgba(241,243,248,.80); backdrop-filter: blur(14px) saturate(1.4); -webkit-backdrop-filter: blur(14px) saturate(1.4); border: 1px solid rgba(255,255,255,.65); box-shadow: 0 10px 28px -14px rgba(6,10,36,.55); display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 8px 10px; color: #0A0F2C">
+<div style="display: flex; flex-direction: column; align-items: flex-start; gap: 5px; min-width: 0">
+<span style="display: inline-flex; align-items: center; gap: 5px; padding: 4px 9px; border-radius: 999px; background: {{accent}}; color: #FFFFFF; font-size: 14px; font-weight: 700; letter-spacing: .05em; white-space: nowrap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"></circle><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"></path><circle cx="17" cy="9" r="2.6"></circle><path d="M16 14.6c2.9.2 5 2.2 5 5.4"></path></svg>PARA 2 PERSONAS</span>
+<span style="font-size: 17px; font-weight: 500; color: #4A5578; white-space: nowrap">Antes <span style="text-decoration: line-through; text-decoration-thickness: 1.5px">{{p.refTxt}}</span></span>
+</div>
+<div style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left">
+<span style="font-size: 14px; font-weight: 700; letter-spacing: .08em; color: #4A5578">DESDE USD</span>
+<span style="font-size: clamp(2.2rem, 3.2vw, 2.6rem); font-weight: 700; line-height: .95; letter-spacing: -.02em; color: #1236C8">{{p.desdeTxt}}</span>
+</div>
+</div>
+</div>
+<div style="flex-grow: 1; padding: 16px 20px 20px; display: flex; flex-direction: column; gap: 11px">
+<h3 style="margin: 0; font-size: 25px; font-weight: 600; line-height: 1.25; letter-spacing: -.01em; color: #0A0F2C">{{p.nombre}}</h3>
+<div style="display: flex; align-items: center; align-self: flex-start; gap: 10px; padding: 6px 12px; border-radius: 999px; border: 1px solid #C9D3F2; font-size: 17px; font-weight: 500; color: #1A2A6B">
+<span style="display: inline-flex; align-items: center; gap: 6px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>{{p.dias}} Días</span>
+<span style="width: 1px; height: 13px; background: #C9D3F2"></span>
+<span style="display: inline-flex; align-items: center; gap: 6px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>{{p.nochesTxt}} Noches</span>
+</div>
+<sc-if value="{{p.hasRecorrido}}" hint-placeholder-val="{{ true }}">
+<p style="margin: 0; font-size: 16px; line-height: 1.5; color: #4A5578"><span style="font-weight: 600; color: #1F4BFF">Recorriendo: </span>{{p.ciudadesRecorrido}}</p>
+</sc-if>
+<div style="display: flex; flex-direction: column; gap: 3px; font-size: 17px; color: #4A5578">
+<span style="display: flex; align-items: flex-start; gap: 7px; font-weight: 500"><svg style="flex-shrink: 0; margin-top: 2px" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1F4BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path></svg>Salidas desde {{p.ciudadesTxt}}</span>
+<span style="display: flex; align-items: center; gap: 7px"><svg style="flex-shrink: 0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1F4BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>{{p.totalTxt}} · {{p.rangoTxt}}</span>
+</div>
+<div style="margin-top: auto; display: flex; flex-direction: column; gap: 10px; padding-top: 4px">
+<div style="display: flex; gap: 8px">
+<button class="bd-ghost" type="button" onClick="{{p.toggle}}" aria-expanded="{{p.expanded}}" style="flex: 1 1 0; min-height: 46px; padding: 0 12px; border-radius: 999px; border: 1.5px solid {{p.datesBorder}}; background: {{p.datesBg}}; color: {{p.datesColor}}; font-family: inherit; font-size: 17px; font-weight: 600; cursor: pointer">{{p.datesLabel}}</button>
+<button class="bd-ghost" type="button" onClick="{{p.openFlyer}}" style="flex: 1 1 0; min-height: 46px; padding: 0 12px; border-radius: 999px; border: 1.5px solid #C9D3F2; background: #FFFFFF; color: #0A0F2C; font-family: inherit; font-size: 17px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 7px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"></rect><circle cx="9.5" cy="9" r="1.5"></circle><path d="M20 15l-4-4-9 10"></path></svg>Ver flyer</button>
+</div>
+<a class="bd-btn" href="{{p.akiclic}}" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; border-radius: 999px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 17px">Ir a Akiclic <svg class="bd-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+</div>
+</div>
+</article>
+</sc-for>
+</div>
+<sc-if value="{{thOpen}}" hint-placeholder-val="{{ false }}">
+<div id="bd-panel-th" class="bd-panel" role="region" aria-label="Fechas de salida · {{thPanel.nombre}}" style="position: relative; margin-top: 28px; border-radius: 22px; background: #FFFFFF; color: #0A0F2C; border: 1px solid #D6DFFB; box-shadow: 0 24px 60px -30px rgba(10,15,44,.45); overflow: hidden">
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 28px; background: #060A24; color: #FFFFFF">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 14px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: #8FADFF">Fechas y tarifas</span>
+<span style="font-size: clamp(1.25rem, 2vw, 1.6rem); font-weight: 700; line-height: 1.2">{{thPanel.nombre}}</span>
+<span style="font-size: 17px; color: #C3CDEB">{{thPanel.resumen}}</span>
+</div>
+<button type="button" onClick="{{closePanel}}" aria-label="Cerrar fechas" style="width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,.3); background: transparent; color: #FFFFFF; cursor: pointer; display: inline-flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+</div>
+<sc-if value="{{thPanel.hasRecorrido}}" hint-placeholder-val="{{ true }}">
+<div style="margin: 18px 28px 0; padding: 14px 18px; border-radius: 14px; background: #F5F7FD; border: 1px solid #E2E7F5; font-size: 17px; line-height: 1.6; color: #1A2A6B"><span style="display: block; font-size: 14px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #1F4BFF; margin-bottom: 2px">Recorrido</span>{{thPanel.recorrido}}</div>
+</sc-if>
+<div style="padding: 18px 28px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+<span style="font-size: 14px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: #5A6488; margin-right: 4px">Ciudad de salida</span>
+<sc-for list="{{thPanel.tabs}}" as="tb" hint-placeholder-count="2">
+<button type="button" onClick="{{tb.select}}" aria-pressed="{{tb.pressed}}" style="display: inline-flex; align-items: center; gap: 8px; min-height: 42px; padding: 0 16px; border-radius: 999px; border: 1.5px solid {{tb.border}}; background: {{tb.bg}}; color: {{tb.fg}}; font-family: inherit; font-size: 17px; font-weight: 600; cursor: pointer">{{tb.label}} <span style="font-size: 14px; font-weight: 600; opacity: .75">{{tb.count}}</span></button>
+</sc-for>
+</div>
+<div class="bd-rows" style="padding: 8px 28px 24px">
+<div class="bd-row bd-row-head" style="font-size: 14px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #5A6488; border-bottom: 1.5px solid #0A0F2C">
+<span>Salida → Regreso</span><span>Ruta</span><span style="color: #1F4BFF">Para 2 personas</span><span>Otras acomodaciones</span>
+</div>
+<sc-for list="{{thPanel.meses}}" as="mo" hint-placeholder-count="2">
+<div style="padding: 18px 0 6px; font-size: 14px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #1F4BFF">{{mo.label}}</div>
+<sc-for list="{{mo.rows}}" as="r" hint-placeholder-count="3">
+<div class="bd-row" style="border-bottom: 1px solid #E8ECF7">
+<div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+<span style="font-size: 17px; font-weight: 600; color: #0A0F2C">{{r.salida}}</span>
+<span style="font-size: 17px; color: #5A6488">Regreso {{r.regreso}} · {{r.dias}} días</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
+<span style="font-size: 17px; font-weight: 600; letter-spacing: .04em; color: #1A2A6B">{{r.ruta}}</span>
+<sc-if value="{{r.showFlag}}" hint-placeholder-val="{{ false }}">
+<span title="{{r.flag}}" style="align-self: flex-start; padding: 2px 8px; border-radius: 6px; background: #FFF1C2; color: #7A5200; font-size: 14px; font-weight: 700">⚠ Pendiente confirmar</span>
+</sc-if>
+</div>
+<div class="bd-promo" style="display: flex; flex-direction: column; gap: 0; padding: 8px 12px; border-radius: 12px; background: #F1F4FF">
+<span class="bd-promo-label" style="font-size: 14px; font-weight: 700; letter-spacing: .1em; color: #1F4BFF">PARA 2 PERSONAS</span>
+<span style="font-size: 17px; color: #7A84A6; text-decoration: line-through">{{r.ref}}</span>
+<span style="font-size: 22px; font-weight: 700; line-height: 1.15; color: #1F4BFF">{{r.promo}}</span>
+</div>
+<div class="bd-sec">
+<div style="display: flex; flex-direction: column; gap: 1px"><span style="font-size: 14px; font-weight: 500; color: #5A6488">Triple · 3 pers.</span><span style="font-size: 17px; font-weight: 500; color: #0A0F2C">{{r.tpl}}</span></div>
+<div style="display: flex; flex-direction: column; gap: 1px"><span style="font-size: 14px; font-weight: 500; color: #5A6488">Niño · 1 pers.</span><span style="font-size: 17px; font-weight: 500; color: #0A0F2C">{{r.chd}}</span></div>
+<div style="display: flex; flex-direction: column; gap: 1px"><span style="font-size: 14px; font-weight: 500; color: #5A6488">Sencilla · 1 pers.</span><span style="font-size: 17px; font-weight: 500; color: #0A0F2C">{{r.sgl}}</span></div>
+</div>
+</div>
+</sc-for>
+</sc-for>
+</div>
+</div>
+</sc-if>
+</div>
+</section>
+
+<!-- ============ CATEGORÍA 03 · TURQUÍA (mezquita en línea) ============ -->
+<section id="turquia" style="position: relative; background: #1638E8; color: #FFFFFF; padding: 120px 0 136px; overflow: hidden">
+<svg aria-hidden="true" viewBox="0 0 1440 600" preserveAspectRatio="none" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none">
+<g class="bd-wave" style="animation-duration: 76s"><path d="M0 140 C240 80 480 80 720 140 S1200 200 1440 140 S1920 80 2160 140 S2640 200 2880 140" fill="none" stroke="#FFFFFF" stroke-opacity="0.08" stroke-width="1" vector-effect="non-scaling-stroke"></path></g>
+<g class="bd-wave-r" style="animation-duration: 64s"><path d="M0 330 C240 250 480 250 720 330 S1200 410 1440 330 S1920 250 2160 330 S2640 410 2880 330" fill="none" stroke="#FFFFFF" stroke-opacity="0.1" stroke-width="1" vector-effect="non-scaling-stroke"></path></g>
+<g class="bd-wave" style="animation-duration: 84s"><path d="M0 500 C240 440 480 440 720 500 S1200 560 1440 500 S1920 440 2160 500 S2640 560 2880 500" fill="none" stroke="#FFFFFF" stroke-opacity="0.06" stroke-width="1" vector-effect="non-scaling-stroke"></path></g>
+</svg>
+<div style="position: relative; max-width: 1320px; margin: 0 auto; padding: 0 40px">
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: 72px 56px; align-items: stretch">
+<div style="display: flex; flex-direction: column; justify-content: space-between; gap: 20px; padding: 6px 6px 6px 0">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 14px; font-weight: 600; letter-spacing: .24em; color: #DCE4FF">03 · BLACK DAYS</span>
+<h2 style="margin: 0; font-family: 'Anton', Impact, sans-serif; font-weight: 400; font-size: clamp(2.6rem, 4.4vw, 3.6rem); line-height: 1; letter-spacing: .01em; white-space: nowrap; color: #FFFFFF">TURQUÍA</h2>
+<div class="bd-pitch" style="position: relative; display: flex; flex-direction: column; gap: 10px; max-width: 100%; margin-top: 12px"><span aria-hidden="true" style="width: 56px; height: 4px; border-radius: 2px; background: #FFD84D"></span><p style="margin: 0; font-size: 25px; font-weight: 700; line-height: 1.2; letter-spacing: -.015em; color: #FFFFFF">¡Las mejores oportunidades para cerrar más ventas!</p><p style="margin: 0; font-size: 18px; font-weight: 500; line-height: 1.5; color: #DCE4FF">Turquía y Dubái con salidas desde Bogotá el 20 de febrero y el 12 de marzo de 2027.</p></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="position: relative; width: 100%; height: 200px">
+<svg class="bd-mono" aria-hidden="true" viewBox="0 0 320 200" preserveAspectRatio="xMidYMax meet" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none">
+<path class="bd-draw" pathLength="1000" d="M112 150 L112 190 M228 150 L228 190 M136 118 L204 118 M160 190 L160 168 Q170 156 180 168 L180 190 M132 172 L132 162 Q137 156 142 162 L142 172 M198 172 L198 162 Q203 156 208 162 L208 172 M89 110 L103 110 M237 110 L251 110" fill="none" stroke="#FFFFFF" stroke-opacity="0.4" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path>
+<path class="bd-draw" pathLength="1000" d="M0 190 C40 186 70 192 92 190 L92 70 L90 70 L90 64 L92 64 L96 40 L100 64 L102 64 L102 70 L100 70 L100 150 L112 150 L112 140 C112 126 124 118 136 118 L138 118 C140 96 154 82 168 80 L168 72 L170 64 L172 72 L172 80 C186 82 200 96 202 118 L204 118 C216 118 228 126 228 140 L228 150 L240 150 L240 70 L238 70 L238 64 L240 64 L244 40 L248 64 L250 64 L250 70 L248 70 L248 190 C272 188 296 192 320 190" fill="none" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path>
+<path class="bd-trace" pathLength="1000" d="M0 190 C40 186 70 192 92 190 L92 70 L90 70 L90 64 L92 64 L96 40 L100 64 L102 64 L102 70 L100 70 L100 150 L112 150 L112 140 C112 126 124 118 136 118 L138 118 C140 96 154 82 168 80 L168 72 L170 64 L172 72 L172 80 C186 82 200 96 202 118 L204 118 C216 118 228 126 228 140 L228 150 L240 150 L240 70 L238 70 L238 64 L240 64 L244 40 L248 64 L250 64 L250 70 L248 70 L248 190 C272 188 296 192 320 190" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" style="animation-duration: 10s; animation-delay: 2.6s"></path>
+</svg>
+</div>
+<span style="font-size: 17px; font-weight: 500; color: #FFFFFF; padding-top: 8px">{{turquiaPaquetesTxt}}</span>
+<a href="#promociones" style="font-size: 17px; font-weight: 600; color: #FFFFFF; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; min-height: 44px">Volver a destinos <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"></path></svg></a>
+</div>
+</div>
+<sc-for list="{{turquia}}" as="p" hint-placeholder-count="2">
+<article class="bd-card" style="position: relative; display: flex; flex-direction: column; border-radius: 22px; overflow: hidden; background: #FFFFFF; color: #0A0F2C; border: 2px solid {{p.ring}}; box-shadow: 0 10px 30px -18px rgba(10,15,44,.35)">
+<div style="position: relative; height: 262px; overflow: hidden; background: #0A0F2C">
+<sc-if value="{{p.hasFoto}}" hint-placeholder-val="{{ true }}">
+<img class="bd-img" src="{{p.foto}}" alt="{{p.nombre}}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block">
+</sc-if>
+<sc-if value="{{p.noFoto}}" hint-placeholder-val="{{ false }}">
+<div class="bd-img bd-ph" role="img" aria-label="Imagen provisional · {{p.nombre}}" style="position: absolute; inset: 0"></div>
+<span style="position: absolute; top: 96px; left: 0; right: 0; text-align: center; font-size: 14px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.75)">Imagen provisional</span>
+</sc-if>
+<div style="position: absolute; top: 14px; left: 14px; display: flex; flex-direction: column; align-items: flex-start; gap: 6px">
+<sc-if value="{{p.showNew}}" hint-placeholder-val="{{ false }}">
+<span style="padding: 4px 10px; border-radius: 8px; background: #FFD84D; color: #0A0F2C; font-size: 14px; font-weight: 700; letter-spacing: .06em">NUEVO · PROPUESTA</span>
+</sc-if>
+<sc-if value="{{p.hasUrgency}}" hint-placeholder-val="{{ false }}">
+<span style="display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 999px; background: #FF4D55; color: #FFFFFF; font-size: 14px; font-weight: 600"><span class="bd-pulse" style="width: 6px; height: 6px; border-radius: 50%; background: #FFFFFF; display: inline-block"></span>{{p.urgency}}</span>
+</sc-if>
+</div>
+<div class="bd-off" style="position: absolute; top: 12px; right: 12px; width: 104px; padding: 8px 6px 7px; border-radius: 14px; background: #FFFFFF; text-align: center; line-height: 1; box-shadow: 0 8px 20px -10px rgba(0,0,0,.5)">
+<div style="display: flex; align-items: flex-start; justify-content: center; color: #E3141B; font-weight: 800"><span style="font-size: 34px; letter-spacing: -.03em">50</span><span style="font-size: 16px; margin-top: 3px">%</span><span style="font-size: 11px; margin: 5px 0 0 3px">DTO.</span></div>
+<div style="margin-top: 5px; padding: 3px 4px; border-radius: 6px; background: #E3141B; color: #FFFFFF; font-size: 10px; font-weight: 700; line-height: 1.15">En el 2.º pasajero</div>
+<div style="margin-top: 4px; font-size: 9px; font-weight: 500; color: #0A0F2C; line-height: 1.15">En la porción terrestre*</div>
+</div>
+<div class="bd-glass" style="position: absolute; left: 10px; right: 10px; bottom: 10px; padding: 11px 14px 12px; border-radius: 16px; background: rgba(241,243,248,.80); backdrop-filter: blur(14px) saturate(1.4); -webkit-backdrop-filter: blur(14px) saturate(1.4); border: 1px solid rgba(255,255,255,.65); box-shadow: 0 10px 28px -14px rgba(6,10,36,.55); display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 8px 10px; color: #0A0F2C">
+<div style="display: flex; flex-direction: column; align-items: flex-start; gap: 5px; min-width: 0">
+<span style="display: inline-flex; align-items: center; gap: 5px; padding: 4px 9px; border-radius: 999px; background: {{accent}}; color: #FFFFFF; font-size: 14px; font-weight: 700; letter-spacing: .05em; white-space: nowrap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"></circle><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"></path><circle cx="17" cy="9" r="2.6"></circle><path d="M16 14.6c2.9.2 5 2.2 5 5.4"></path></svg>PARA 2 PERSONAS</span>
+<span style="font-size: 17px; font-weight: 500; color: #4A5578; white-space: nowrap">Antes <span style="text-decoration: line-through; text-decoration-thickness: 1.5px">{{p.refTxt}}</span></span>
+</div>
+<div style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left">
+<span style="font-size: 14px; font-weight: 700; letter-spacing: .08em; color: #4A5578">DESDE USD</span>
+<span style="font-size: clamp(2.2rem, 3.2vw, 2.6rem); font-weight: 700; line-height: .95; letter-spacing: -.02em; color: #1236C8">{{p.desdeTxt}}</span>
+</div>
+</div>
+</div>
+<div style="flex-grow: 1; padding: 16px 20px 20px; display: flex; flex-direction: column; gap: 11px">
+<h3 style="margin: 0; font-size: 25px; font-weight: 600; line-height: 1.25; letter-spacing: -.01em; color: #0A0F2C">{{p.nombre}}</h3>
+<div style="display: flex; align-items: center; align-self: flex-start; gap: 10px; padding: 6px 12px; border-radius: 999px; border: 1px solid #C9D3F2; font-size: 17px; font-weight: 500; color: #1A2A6B">
+<span style="display: inline-flex; align-items: center; gap: 6px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>{{p.dias}} Días</span>
+<span style="width: 1px; height: 13px; background: #C9D3F2"></span>
+<span style="display: inline-flex; align-items: center; gap: 6px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>{{p.nochesTxt}} Noches</span>
+</div>
+<sc-if value="{{p.hasRecorrido}}" hint-placeholder-val="{{ true }}">
+<p style="margin: 0; font-size: 16px; line-height: 1.5; color: #4A5578"><span style="font-weight: 600; color: #1F4BFF">Recorriendo: </span>{{p.ciudadesRecorrido}}</p>
+</sc-if>
+<div style="display: flex; flex-direction: column; gap: 3px; font-size: 17px; color: #4A5578">
+<span style="display: flex; align-items: flex-start; gap: 7px; font-weight: 500"><svg style="flex-shrink: 0; margin-top: 2px" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1F4BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path></svg>Salidas desde {{p.ciudadesTxt}}</span>
+<span style="display: flex; align-items: center; gap: 7px"><svg style="flex-shrink: 0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1F4BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>{{p.totalTxt}} · {{p.rangoTxt}}</span>
+</div>
+<div style="margin-top: auto; display: flex; flex-direction: column; gap: 10px; padding-top: 4px">
+<div style="display: flex; gap: 8px">
+<button class="bd-ghost" type="button" onClick="{{p.toggle}}" aria-expanded="{{p.expanded}}" style="flex: 1 1 0; min-height: 46px; padding: 0 12px; border-radius: 999px; border: 1.5px solid {{p.datesBorder}}; background: {{p.datesBg}}; color: {{p.datesColor}}; font-family: inherit; font-size: 17px; font-weight: 600; cursor: pointer">{{p.datesLabel}}</button>
+<button class="bd-ghost" type="button" onClick="{{p.openFlyer}}" style="flex: 1 1 0; min-height: 46px; padding: 0 12px; border-radius: 999px; border: 1.5px solid #C9D3F2; background: #FFFFFF; color: #0A0F2C; font-family: inherit; font-size: 17px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 7px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"></rect><circle cx="9.5" cy="9" r="1.5"></circle><path d="M20 15l-4-4-9 10"></path></svg>Ver flyer</button>
+</div>
+<a class="bd-btn" href="{{p.akiclic}}" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; border-radius: 999px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 17px">Ir a Akiclic <svg class="bd-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+</div>
+</div>
+</article>
+</sc-for>
+</div>
+<sc-if value="{{trOpen}}" hint-placeholder-val="{{ false }}">
+<div id="bd-panel-tr" class="bd-panel" role="region" aria-label="Fechas de salida · {{trPanel.nombre}}" style="position: relative; margin-top: 28px; border-radius: 22px; background: #FFFFFF; color: #0A0F2C; border: 1px solid #D6DFFB; box-shadow: 0 24px 60px -30px rgba(10,15,44,.45); overflow: hidden">
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 28px; background: #060A24; color: #FFFFFF">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 14px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: #8FADFF">Fechas y tarifas</span>
+<span style="font-size: clamp(1.25rem, 2vw, 1.6rem); font-weight: 700; line-height: 1.2">{{trPanel.nombre}}</span>
+<span style="font-size: 17px; color: #C3CDEB">{{trPanel.resumen}}</span>
+</div>
+<button type="button" onClick="{{closePanel}}" aria-label="Cerrar fechas" style="width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,.3); background: transparent; color: #FFFFFF; cursor: pointer; display: inline-flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+</div>
+<sc-if value="{{trPanel.hasRecorrido}}" hint-placeholder-val="{{ true }}">
+<div style="margin: 18px 28px 0; padding: 14px 18px; border-radius: 14px; background: #F5F7FD; border: 1px solid #E2E7F5; font-size: 17px; line-height: 1.6; color: #1A2A6B"><span style="display: block; font-size: 14px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #1F4BFF; margin-bottom: 2px">Recorrido</span>{{trPanel.recorrido}}</div>
+</sc-if>
+<div style="padding: 18px 28px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+<span style="font-size: 14px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: #5A6488; margin-right: 4px">Ciudad de salida</span>
+<sc-for list="{{trPanel.tabs}}" as="tb" hint-placeholder-count="2">
+<button type="button" onClick="{{tb.select}}" aria-pressed="{{tb.pressed}}" style="display: inline-flex; align-items: center; gap: 8px; min-height: 42px; padding: 0 16px; border-radius: 999px; border: 1.5px solid {{tb.border}}; background: {{tb.bg}}; color: {{tb.fg}}; font-family: inherit; font-size: 17px; font-weight: 600; cursor: pointer">{{tb.label}} <span style="font-size: 14px; font-weight: 600; opacity: .75">{{tb.count}}</span></button>
+</sc-for>
+</div>
+<div class="bd-rows" style="padding: 8px 28px 24px">
+<div class="bd-row bd-row-head" style="font-size: 14px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #5A6488; border-bottom: 1.5px solid #0A0F2C">
+<span>Salida → Regreso</span><span>Ruta</span><span style="color: #1F4BFF">Para 2 personas</span><span>Otras acomodaciones</span>
+</div>
+<sc-for list="{{trPanel.meses}}" as="mo" hint-placeholder-count="2">
+<div style="padding: 18px 0 6px; font-size: 14px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #1F4BFF">{{mo.label}}</div>
+<sc-for list="{{mo.rows}}" as="r" hint-placeholder-count="3">
+<div class="bd-row" style="border-bottom: 1px solid #E8ECF7">
+<div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+<span style="font-size: 17px; font-weight: 600; color: #0A0F2C">{{r.salida}}</span>
+<span style="font-size: 17px; color: #5A6488">Regreso {{r.regreso}} · {{r.dias}} días</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
+<span style="font-size: 17px; font-weight: 600; letter-spacing: .04em; color: #1A2A6B">{{r.ruta}}</span>
+<sc-if value="{{r.showFlag}}" hint-placeholder-val="{{ false }}">
+<span title="{{r.flag}}" style="align-self: flex-start; padding: 2px 8px; border-radius: 6px; background: #FFF1C2; color: #7A5200; font-size: 14px; font-weight: 700">⚠ Pendiente confirmar</span>
+</sc-if>
+</div>
+<div class="bd-promo" style="display: flex; flex-direction: column; gap: 0; padding: 8px 12px; border-radius: 12px; background: #F1F4FF">
+<span class="bd-promo-label" style="font-size: 14px; font-weight: 700; letter-spacing: .1em; color: #1F4BFF">PARA 2 PERSONAS</span>
+<span style="font-size: 17px; color: #7A84A6; text-decoration: line-through">{{r.ref}}</span>
+<span style="font-size: 22px; font-weight: 700; line-height: 1.15; color: #1F4BFF">{{r.promo}}</span>
+</div>
+<div class="bd-sec">
+<div style="display: flex; flex-direction: column; gap: 1px"><span style="font-size: 14px; font-weight: 500; color: #5A6488">Triple · 3 pers.</span><span style="font-size: 17px; font-weight: 500; color: #0A0F2C">{{r.tpl}}</span></div>
+<div style="display: flex; flex-direction: column; gap: 1px"><span style="font-size: 14px; font-weight: 500; color: #5A6488">Niño · 1 pers.</span><span style="font-size: 17px; font-weight: 500; color: #0A0F2C">{{r.chd}}</span></div>
+<div style="display: flex; flex-direction: column; gap: 1px"><span style="font-size: 14px; font-weight: 500; color: #5A6488">Sencilla · 1 pers.</span><span style="font-size: 17px; font-weight: 500; color: #0A0F2C">{{r.sgl}}</span></div>
+</div>
+</div>
+</sc-for>
+</sc-for>
+</div>
+</div>
+</sc-if>
+</div>
+</section>
+
+<!-- ============ CIERRE · PORTAFOLIO COMPLETO ============ -->
+<section id="portafolio" style="position: relative; background: #F5F7FD; padding: 120px 0; overflow: hidden">
+<svg aria-hidden="true" viewBox="0 0 1440 600" preserveAspectRatio="none" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none">
+<g class="bd-wave" style="animation-duration: 78s"><path d="M0 150 C240 90 480 90 720 150 S1200 210 1440 150 S1920 90 2160 150 S2640 210 2880 150" fill="none" stroke="#1F4BFF" stroke-opacity="0.07" stroke-width="1" vector-effect="non-scaling-stroke"></path></g>
+<g class="bd-wave-r" style="animation-duration: 66s"><path d="M0 330 C240 250 480 250 720 330 S1200 410 1440 330 S1920 250 2160 330 S2640 410 2880 330" fill="none" stroke="#1F4BFF" stroke-opacity="0.09" stroke-width="1" vector-effect="non-scaling-stroke"></path></g>
+<g class="bd-wave" style="animation-duration: 86s"><path d="M0 500 C240 440 480 440 720 500 S1200 560 1440 500 S1920 440 2160 500 S2640 560 2880 500" fill="none" stroke="#1F4BFF" stroke-opacity="0.06" stroke-width="1" vector-effect="non-scaling-stroke"></path></g>
+</svg>
+<div style="position: relative; max-width: 860px; margin: 0 auto; padding: 0 40px; display: flex; flex-direction: column; align-items: center; gap: 22px; text-align: center">
+<span aria-hidden="true" style="width: 56px; height: 4px; border-radius: 2px; background: #FF4D55"></span>
+<h2 style="margin: 0; font-size: clamp(2rem, 3.6vw, 2.9rem); font-weight: 700; line-height: 1.15; letter-spacing: -.02em; color: #0A0F2C">¿Buscas más destinos para tus clientes?</h2>
+<p style="margin: 0; max-width: 640px; font-size: 19px; font-weight: 400; line-height: 1.6; color: #2A3560">Conoce todo el portafolio de Akira Travel: más programas, salidas y experiencias para que tu agencia siga vendiendo todo el año.</p>
+<a class="bd-btn" href="https://akiratravel.com/" target="_blank" rel="noopener" style="margin-top: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 60px; padding: 0 36px; border-radius: 999px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-size: 18px; font-weight: 600">Ver portafolio completo <svg class="bd-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+</div>
+</section>
+
+<!-- ============ PIE ============ -->
+<footer style="background: #060A24; color: #FFFFFF">
+<div style="border-bottom: 1px solid rgba(255,255,255,.12)">
+<div style="max-width: 1320px; margin: 0 auto; padding: 0 40px">
+<button type="button" onClick="{{toggleTerms}}" aria-expanded="{{termsExpanded}}" aria-controls="bd-terminos" style="width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; padding: 0; border: 0; background: transparent; color: #FFFFFF; font-family: inherit; font-size: 17px; font-weight: 600; text-align: left; cursor: pointer">Términos y condiciones · Black Days Akira Travel 2026<span style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(255,255,255,.3); flex-shrink: 0; font-size: 20px; font-weight: 400; line-height: 1">{{termsIcon}}</span></button>
+<sc-if value="{{termsOpen}}" hint-placeholder-val="{{ false }}">
+<ol id="bd-terminos" class="bd-panel" style="margin: 0; padding: 4px 0 32px 22px; display: flex; flex-direction: column; gap: 10px; font-size: 16px; line-height: 1.6; color: #C3CDEB">
+<li style="padding-left: 4px"><strong>Vigencia:</strong> la promoción es válida para reservas hechas entre el 9 y el 27 de noviembre de 2026.</li>
+<li style="padding-left: 4px"><strong>Beneficio:</strong> 50% de descuento para el segundo pasajero en la porción terrestre del programa. El descuento no aplica sobre el tiquete aéreo, impuestos ni otros cargos.</li>
+<li style="padding-left: 4px"><strong>Aplicación:</strong> aplica solo para salidas y destinos seleccionados, con fecha de viaje entre enero y abril de 2027, y para 2 pasajeros en acomodación doble en la misma reserva.</li>
+<li style="padding-left: 4px"><strong>Cupos y disponibilidad:</strong> la promoción está sujeta a cupos y disponibilidad al momento de la reserva. Que una salida esté publicada no garantiza que tenga cupos disponibles.</li>
+<li style="padding-left: 4px"><strong>Moneda:</strong> las tarifas están expresadas en dólares estadounidenses (USD).</li>
+<li style="padding-left: 4px"><strong>Comisiones:</strong> la agencia recibe la comisión según su categoría y el acuerdo comercial vigente con Akira Travel.</li>
+<li style="padding-left: 4px"><strong>Restricciones:</strong> la promoción no se puede combinar con otras promociones o descuentos y no aplica para reservas hechas antes del 9 de noviembre de 2026.</li>
+<li style="padding-left: 4px"><strong>Cambios y cancelaciones:</strong> se rigen por las condiciones de cada programa, de la aerolínea y de los proveedores terrestres. Pueden generar penalidades.</li>
+<li style="padding-left: 4px"><strong>Tarifas:</strong> pueden cambiar sin previo aviso.</li>
+</ol>
+</sc-if>
+</div>
+</div>
+<div style="max-width: 1320px; margin: 0 auto; padding: 36px 40px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px">
+<a href="https://akiratravel.com/" target="_blank" rel="noopener" aria-label="Ir al inicio de Akira Travel" style="display: block; width: 150px; flex-shrink: 0"><img src="/_blob/2ebbca9e03c5e2cbf9c333e2d889fe5d" alt="Akira Travel" style="display: block; width: 100%; height: auto"></a>
+<span style="flex: 1 1 360px; font-size: 14px; line-height: 1.5; color: #8C98BF; text-align: right">RNT 24740 · Esta agencia previene y contrarresta la explotación, la pornografía y el turismo sexual con menores de edad.</span>
+</div>
+</footer>
+
+<!-- ============ MODAL · VER FLYER ============ -->
+<sc-if value="{{flyerOpen}}" hint-placeholder-val="{{ false }}">
+<div class="bd-modal" style="position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 20px">
+<button type="button" aria-label="Cerrar flyer" onClick="{{closeFlyer}}" style="position: absolute; inset: 0; border: 0; background: rgba(6,10,36,.8); cursor: pointer"></button>
+<div class="bd-modal-box" role="dialog" aria-modal="true" aria-label="Flyer · {{flyer.name}}" style="position: relative; width: 100%; max-width: 520px; max-height: calc(100vh - 40px); display: flex; flex-direction: column; border-radius: 20px; overflow: hidden; background: #FFFFFF; box-shadow: 0 40px 90px -30px rgba(0,0,0,.6)">
+<div style="flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 14px 14px 22px; border-bottom: 1px solid #E8ECF7">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; min-width: 0">
+<span style="font-size: 17px; font-weight: 600; color: #0A0F2C">{{flyer.name}}</span>
+<sc-for list="{{flyer.tabs}}" as="ft" hint-placeholder-count="0">
+<button type="button" onClick="{{ft.select}}" aria-pressed="{{ft.pressed}}" style="min-height: 34px; padding: 0 12px; border-radius: 999px; border: 1.5px solid {{ft.border}}; background: {{ft.bg}}; color: {{ft.fg}}; font-family: inherit; font-size: 17px; font-weight: 600; cursor: pointer">{{ft.label}}</button>
+</sc-for>
+</div>
+<button type="button" onClick="{{closeFlyer}}" aria-label="Cerrar flyer" style="flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%; border: 1px solid #D6DCEC; background: #FFFFFF; color: #0A0F2C; cursor: pointer; display: inline-flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+</div>
+<div style="flex: 1 1 auto; min-height: 0; overflow: auto; background: #F5F7FD">
+<sc-if value="{{flyer.hasImage}}" hint-placeholder-val="{{ true }}">
+<img src="{{flyer.src}}" alt="Flyer {{flyer.name}}" style="display: block; width: 100%; height: auto">
+</sc-if>
+<sc-if value="{{flyer.missing}}" hint-placeholder-val="{{ false }}">
+<div style="min-height: 420px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 40px; text-align: center; color: #5A6488">
+<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1F4BFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"></rect><circle cx="9.5" cy="9" r="1.5"></circle><path d="M20 15l-4-4-9 10"></path></svg>
+<span style="font-size: 17px; font-weight: 600; color: #0A0F2C">Flyer pendiente de carga</span>
+<span style="font-size: 17px">Aquí se mostrará el flyer de {{flyer.name}}.</span>
+</div>
+</sc-if>
+</div>
+</div>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#1F4BFF","options":["#1F4BFF","#2E6BFF","#0038FF","#0A0F2C"]},"campaignStart":{"editor":"text","default":"2026-11-09T00:00:00-05:00","section":"Campaña"},"campaignEnd":{"editor":"text","default":"2026-11-27T23:59:59-05:00","section":"Campaña"},"urgencyPreview":{"editor":"boolean","default":false,"section":"Urgencia"},"newTag":{"editor":"boolean","default":true,"section":"Revisión"},"internalFlags":{"editor":"boolean","default":false,"section":"Revisión"},"$preview":{"width":1440,"height":6800}}'>
+class Component extends DCLogic {
+  // ============ DATOS DEL EXCEL «FINAL PROMO BF» (generados, no editar a mano) ============
+  // Por programa: id, nombre visible, destino, nuevo (propuesta), dias (calculados: llegada - salida + 1),
+  // desde (DBL X2 Pax más bajo), referencia (DBL × 2 de esa misma salida).
+  // salidas: [origen, ruta, fechaSalida, fechaLlegada, DBL, DBL X2 Pax, TPL X3 Pax, CHD X1 Pax, SGL X1 Pax, marcaInterna]
+  data() { return [{"id": "europa-chic", "nombre": "Europa Chic", "destino": "europa", "nuevo": false, "dias": "19", "desde": 6286, "referencia": 7342, "salidas": [["BOG", "BOG MAD", "2027-04-02", "2027-04-20", 3671, 6286, 9957, 3044, 4672, ""], ["BOG", "BOG MAD", "2027-04-16", "2027-05-04", 3671, 6286, 9957, 3044, 4672, ""], ["BOG", "BOG MAD", "2027-04-23", "2027-05-11", 3671, 6286, 9957, 3044, 4672, ""], ["BOG", "BOG MAD", "2027-04-30", "2027-05-18", 3671, 6286, 9957, 3044, 4672, ""]]}, {"id": "europa-esencial", "nombre": "Europa Esencial", "destino": "europa", "nuevo": false, "dias": "17", "desde": 6183, "referencia": 7142, "salidas": [["MDE", "MDE MAD", "2027-04-02", "2027-04-18", 3571, 6183, 9754, 2981, 4408, ""], ["BOG", "BOG MAD", "2027-04-09", "2027-04-25", 3571, 6183, 9754, 2981, 4408, ""], ["MDE", "MDE MAD", "2027-04-16", "2027-05-02", 3571, 6183, 9754, 2981, 4408, ""], ["BOG", "BOG MAD", "2027-04-23", "2027-05-09", 3571, 6183, 9754, 2981, 4408, ""], ["MDE", "MDE MAD", "2027-04-30", "2027-05-16", 3571, 6183, 9754, 2981, 4408, ""]]}, {"id": "europa-fantastica", "nombre": "Europa Fantástica", "destino": "europa", "nuevo": false, "dias": "19", "desde": 6481, "referencia": 7542, "salidas": [["BOG", "BOG MAD", "2027-04-02", "2027-04-20", 3771, 6481, 10252, 3139, 4781, ""], ["BOG", "BOG MAD", "2027-04-16", "2027-05-04", 3771, 6481, 10252, 3139, 4781, ""], ["BOG", "BOG MAD", "2027-04-23", "2027-05-11", 3771, 6481, 10252, 3139, 4781, ""], ["BOG", "BOG MAD", "2027-04-30", "2027-05-18", 3771, 6481, 10252, 3139, 4781, ""]]}, {"id": "europa-vibrante", "nombre": "Europa Vibrante", "destino": "europa", "nuevo": false, "dias": "17", "desde": 6326, "referencia": 7342, "salidas": [["MDE", "MDE MAD", "2027-04-02", "2027-04-18", 3671, 6326, 9997, 3051, 4497, ""], ["BOG", "BOG MAD", "2027-04-09", "2027-04-25", 3671, 6326, 9997, 3051, 4497, ""], ["MDE", "MDE MAD", "2027-04-16", "2027-05-02", 3671, 6326, 9997, 3051, 4497, ""], ["BOG", "BOG MAD", "2027-04-23", "2027-05-09", 3671, 6326, 9997, 3051, 4497, ""], ["MDE", "MDE MAD", "2027-04-30", "2027-05-16", 3671, 6326, 9997, 3051, 4497, ""]]}, {"id": "latidos-del-mar", "nombre": "Latidos del Mar, Europa con Minicrucero", "destino": "europa", "nuevo": false, "dias": "17", "desde": 6455, "referencia": 7342, "salidas": [["MDE", "MDE BOG", "2027-04-02", "2027-04-18", 3671, 6455, 10126, 3071, 4487, "Ruta MDE BOG pendiente de confirmación (las demás salidas desde Medellín van a MAD)"], ["BOG", "BOG MAD", "2027-04-09", "2027-04-25", 3671, 6455, 10126, 3071, 4487, ""], ["MDE", "MDE BOG", "2027-04-16", "2027-05-02", 3671, 6455, 10126, 3071, 4487, "Ruta MDE BOG pendiente de confirmación (las demás salidas desde Medellín van a MAD)"], ["BOG", "BOG MAD", "2027-04-23", "2027-05-09", 3671, 6455, 10126, 3071, 4487, ""], ["MDE", "MDE BOG", "2027-04-30", "2027-05-16", 3671, 6455, 10126, 3071, 4487, "Ruta MDE BOG pendiente de confirmación (las demás salidas desde Medellín van a MAD)"]]}, {"id": "europa-iconica", "nombre": "Europa Icónica", "destino": "europa", "nuevo": false, "dias": "19", "desde": 7682, "referencia": 8942, "salidas": [["BOG", "BOG LIS", "2027-04-07", "2027-04-25", 4471, 7682, 12153, 3720, 5499, ""]]}, {"id": "europa-en-tenis", "nombre": "Europa en Tenis", "destino": "europa", "nuevo": false, "dias": "8", "desde": 4166, "referencia": 4542, "salidas": [["MDE", "MDE MAD", "2027-04-10", "2027-04-17", 2271, 4166, 6437, 2015, 2568, ""], ["BOG", "BOG MAD", "2027-04-17", "2027-04-24", 2271, 4166, 6437, 2015, 2568, ""]]}, {"id": "europa-play", "nombre": "Europa Play", "destino": "europa", "nuevo": false, "dias": "15", "desde": 5675, "referencia": 6542, "salidas": [["BOG", "BOG MAD", "2027-04-10", "2027-04-24", 3271, 5675, 8946, 2741, 3919, ""]]}, {"id": "europa-go", "nombre": "Europa Go", "destino": "europa", "nuevo": false, "dias": "12", "desde": 5559, "referencia": 6142, "salidas": [["BOG", "BOG CDG", "2027-04-30", "2027-05-11", 3071, 5559, 8630, 2672, 3512, ""]]}, {"id": "tailandia-en-tenis", "nombre": "Tailandia en Tenis", "destino": "tailandia", "nuevo": false, "dias": "13", "desde": 7438, "referencia": 8342, "salidas": [["BOG", "BOG BKK", "2027-01-19", "2027-01-31", 4171, 7438, 11609, 3779, 4661, ""]]}, {"id": "esplendores-de-turquia", "nombre": "Esplendores de Turquía", "destino": "turquia", "nuevo": false, "dias": "13", "desde": 4990, "referencia": 5542, "salidas": [["BOG", "BOG IST", "2027-02-20", "2027-03-04", 2771, 4990, 7761, 2510, 3203, ""]]}, {"id": "reinos-del-desierto", "nombre": "Reinos del Desierto, Turquía con Dubái", "destino": "turquia", "nuevo": false, "dias": "17", "desde": 6341, "referencia": 7342, "salidas": [["BOG", "BOG IST", "2027-03-12", "2027-03-28", 3671, 6341, 10012, 3235, 4345, ""]]}]; }
+
+  // ============ CATÁLOGO (lo que el Excel no trae) ============
+  // Datos tomados de los flyers: precio desde y anterior del flyer, noches, recorrido, foto de card y flyers por ciudad.
+  extras() { return {"esplendores-de-turquia": {"noches": "11", "recorrido": "Estambul 1N, Kuzguncuk, Ankara 1N, Capadocia 2N, Sultanhani, Pamukkale 1N, Éfeso, Zona de Izmir 2N, Troya, Estambul 4N", "foto": "/_blob/fd7c09d46af11d3db6807549426815d5", "flyers": [{"ciudad": "Bogotá", "src": "/_blob/a75d27890008b0fd69cc98195c52080d"}]}, "europa-chic": {"noches": "17", "recorrido": "Madrid 2N, San Sebastián, Burdeos 1N, Blois, París 3N, Luxemburgo, Frankfurt 1N, Heidelberg, Selva Negra (Friburgo), Zúrich 1N, Lucerna, Venecia 1N, Padova, Florencia 1N, Asís, Roma 3N, Pisa, Costa Azul 1N, Nimes, Barcelona 2N, Zaragoza, Madrid 1N", "foto": "/_blob/f4e9fa85fafcbdb303cc25e36c182afd", "flyers": [{"ciudad": "Bogotá", "src": "/_blob/58c941e987934e86ddca30f41b17e836"}]}, "europa-en-tenis": {"noches": "6", "recorrido": "Madrid 2N, San Sebastián, Burdeos 1N, París 3N", "foto": "/_blob/929fb2d85d0f00d4427397b8d5f6e64e", "flyers": [{"ciudad": "Bogotá", "src": "/_blob/eb221cb7c7ba728475d37fafa3994c70"}, {"ciudad": "Medellín", "src": "/_blob/7819c0fd41aa3393bc58a9472b1078c1"}]}, "europa-esencial": {"noches": "15", "recorrido": "Madrid 2N, San Sebastián, Lourdes 1N, Blois, Orléans 1N, París 2N, Dijon, Zúrich 1N, Lucerna, Venecia 1N, Padova, Florencia 1N, Asís, Roma 3N, Pisa, Costa Azul 1N, Nimes, Barcelona 1N, Zaragoza, Madrid 1N", "foto": "/_blob/bd7309dc34ac4d4737ee4d743167b173", "flyers": [{"ciudad": "Bogotá", "src": "/_blob/b9e45acb6a2896a05ad6a6a9604730c6"}, {"ciudad": "Medellín", "src": "/_blob/8d9e75a98460bf7d47f3c60c48b381b9"}]}, "europa-fantastica": {"noches": "17", "recorrido": "Madrid 2N, San Sebastián, Burdeos 1N, Blois, París 3N, Luxemburgo, Coblenza – Frankfurt 1N, Heidelberg, Selva Negra (Friburgo), Zúrich 1N, Lucerna, Vaduz (Liechtenstein), Innsbruck 1N, Padova, Venecia 1N, Ferrara, Florencia 1N, Asís, Roma 3N, Pisa, Costa Azul 1N, Nimes, Barcelona 1N, Zaragoza, Madrid 1N", "foto": "/_blob/dd14cee71fd3964c254e9de5e999f1f7", "flyers": [{"ciudad": "Bogotá", "src": "/_blob/f074153841fc5ca5b996af91235fe108"}]}, "europa-go": {"noches": "10", "recorrido": "París 3N, Brujas, Ámsterdam 2N, Colonia, Frankfurt 1N, Núremberg, Praga 1N, Innsbruck 1N, Vaduz, Zúrich 1N, Dijon, París 1N", "foto": "/_blob/e0173979b19da8d0f378ef76829af755", "flyers": [{"ciudad": "Bogotá", "src": "/_blob/717873e6173e6a328200cc0abf1b359f"}]}, "europa-iconica": {"noches": "17", "recorrido": "Lisboa 2N, Fátima, Madrid 2N, San Sebastián, Lourdes 1N, Blois, Orléans 1N, París 2N, Dijon, Zúrich 1N, Lucerna, Venecia 1N, Padova, Florencia 1N, Asís, Roma 3N, Pisa, Costa Azul 1N, Nimes, Barcelona 1N, Zaragoza, Madrid 1N", "foto": "/_blob/fb93845041e043283e7be2093ffbd3fe", "flyers": [{"ciudad": "Bogotá", "src": "/_blob/9a54a866bcba2d4f7d0daa4c1bd51028"}]}, "europa-play": {"noches": "13", "recorrido": "Madrid 2N, San Sebastián, Burdeos 1N, París 2N, Dijon, Zúrich 1N, Lucerna, Venecia 1N, Padova, Florencia 1N, Asís, Roma 2N, Pisa, Costa Azul 1N, Barcelona 1N, Zaragoza, Madrid 1N", "foto": "/_blob/78b9eabd65f887a0f13afbfd5e105ee2", "flyers": [{"ciudad": "Bogotá", "src": "/_blob/3edc7ed05952370720a4a3043e8b488a"}]}, "europa-vibrante": {"noches": "15", "recorrido": "Madrid 2N, San Sebastián, Lourdes 1N, Blois, Orléans 1N, París 2N, Dijon, Zúrich 1N, Lucerna, Vaduz (Liechtenstein), Innsbruck 1N, Padova, Venecia 1N, Ferrara, Florencia 1N, Asís, Roma 2N, Pisa, Costa Azul 1N, Nimes, Barcelona 1N, Zaragoza, Madrid 1N", "foto": "/_blob/1a2bbdf1a956619361fbd0420c70c3c5", "flyers": [{"ciudad": "Bogotá", "src": "/_blob/bb84b58b2844ef072b338e191116b87e"}, {"ciudad": "Medellín", "src": "/_blob/fe07c69db667f2d0045a1f4754341c26"}]}, "latidos-del-mar": {"noches": "15", "recorrido": "Madrid 2N, San Sebastián, Lourdes 1N, Blois, Orléans 1N, París 2N, Dijon, Zúrich 1N, Lucerna, Venecia 1N, Padova, Florencia 1N, Asís, Roma 2N, Barcelona 2N, Zaragoza, Madrid 1N", "foto": "/_blob/7d3ad4e1604243430e998a9182243380", "flyers": [{"ciudad": "Bogotá", "src": "/_blob/c7e63b680d47e6a3cc273526236e0a5e"}, {"ciudad": "Medellín", "src": "/_blob/ff33bad2e1af1735757956e4c1429350"}]}, "tailandia-en-tenis": {"noches": "9", "recorrido": "Bangkok 3N, Kanchanaburi (Río Kwai) 2N, Phuket 3N, Estambul 1N", "foto": "/_blob/32074c795317522f2b9d0d97666530ca", "flyers": [{"ciudad": "Bogotá", "src": "/_blob/7191544dba6fd7fcb0e5c389898b9f8e"}]}, "reinos-del-desierto": {"noches": "14", "recorrido": "Estambul 4N, Kuzguncuk, Ankara 1N, Lago Salado, Capadocia 2N, Sultanhani, Konya, Pamukkale 1N, Éfeso, Zona de Izmir 2N, Troya, Dubái 4N, Abu Dhabi", "foto": "/_blob/bf51b74d25ba116f64d13c52fa1f6f97", "flyers": [{"ciudad": "Bogotá", "src": "/_blob/0d03092e946095ff93b697a29a41a540"}]}}; }
+  akiclicUrl() { return 'https://reservas.akiratravel.com'; }
+
+  componentDidMount() { this.timer = setInterval(() => this.forceUpdate(), 1000); }
+  componentWillUnmount() { clearInterval(this.timer); }
+
+  money(n) { return '$' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+  usd(n) { return n == null ? 'Consultar' : this.money(n) + ' USD'; }
+  day(iso, withWeekday) {
+    const [y, m, d] = iso.split('-').map(Number);
+    const dt = new Date(Date.UTC(y, m - 1, d));
+    try {
+      const o = { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' };
+      if (withWeekday) o.weekday = 'short';
+      return dt.toLocaleDateString('es-CO', o).replace(/\./g, '').replace(/,/g, '').replace(/ de /g, ' ');
+    } catch (e) { return iso; }
+  }
+  monthLabel(iso) {
+    const [y, m] = iso.split('-').map(Number);
+    let s = '';
+    try { s = new Date(Date.UTC(y, m - 1, 1)).toLocaleDateString('es-CO', { month: 'long', year: 'numeric', timeZone: 'UTC' }).replace(' de ', ' '); } catch (e) { s = iso.slice(0, 7); }
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+  shortMonth(iso) {
+    const [y, m] = iso.split('-').map(Number);
+    try { return new Date(Date.UTC(y, m - 1, 1)).toLocaleDateString('es-CO', { month: 'short', year: 'numeric', timeZone: 'UTC' }).replace(/\./g, '').replace(' de ', ' '); } catch (e) { return iso.slice(0, 7); }
+  }
+
+  openDates(p) {
+    const st = this.state || {};
+    const next = st.open === p.id ? null : p.id;
+    this.setState({ open: next, city: null });
+    if (next) {
+      setTimeout(() => {
+        const el = document.getElementById('bd-panel-' + p.panelKey);
+        if (el && el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 80);
+    }
+  }
+
+  buildPanel(p, accent, showFlags) {
+    const st = this.state || {};
+    const CITY = { BOG: 'Bogotá', MDE: 'Medellín', CLO: 'Cali', BAQ: 'Barranquilla' };
+    const order = ['BOG', 'MDE', 'CLO', 'BAQ'];
+    const counts = {};
+    p.salidas.forEach((s) => { counts[s[0]] = (counts[s[0]] || 0) + 1; });
+    const cities = order.filter((c) => counts[c]);
+    const city = cities.includes(st.city) ? st.city : cities[0];
+    const tabs = cities.map((c) => {
+      const on = c === city;
+      return {
+        label: CITY[c], count: counts[c], pressed: on ? 'true' : 'false',
+        bg: on ? accent : '#FFFFFF', fg: on ? '#FFFFFF' : '#0A0F2C', border: on ? accent : '#C9D3F2',
+        select: () => this.setState({ city: c })
+      };
+    });
+    const meses = [];
+    p.salidas.filter((s) => s[0] === city).forEach((s) => {
+      const label = this.monthLabel(s[2]);
+      let g = meses[meses.length - 1];
+      if (!g || g.label !== label) { g = { label, rows: [] }; meses.push(g); }
+      const [y1, m1, d1] = s[2].split('-').map(Number), [y2, m2, d2] = s[3].split('-').map(Number);
+      const dias = Math.round((Date.UTC(y2, m2 - 1, d2) - Date.UTC(y1, m1 - 1, d1)) / 86400000) + 1;
+      g.rows.push({
+        salida: this.day(s[2], true), regreso: this.day(s[3], true), dias,
+        ruta: s[1].replace(' ', ' → '),
+        ref: this.usd(s[4] * 2), promo: this.usd(s[5]), tpl: this.usd(s[6]), chd: this.usd(s[7]), sgl: this.usd(s[8]),
+        
+        flag: s[9], showFlag: showFlags && !!s[9]
+      });
+    });
+    const n = p.salidas.length;
+    const resumen = n + (n === 1 ? ' salida' : ' salidas') + ' · ' + p.dias + ' días · desde ' + cities.length + (cities.length === 1 ? ' ciudad' : ' ciudades');
+    return { nombre: p.nombre, resumen, tabs, meses, recorrido: p.recorrido || '', hasRecorrido: !!p.recorrido };
+  }
+
+  renderVals() {
+    const accent = this.props.accent ?? '#1F4BFF';
+    const showUrgencyDemo = this.props.urgencyPreview ?? false;
+    const showNewTag = this.props.newTag ?? true;
+    const showFlags = this.props.internalFlags ?? false;
+    // Fechas de la campaña (hora Colombia, UTC-5). Ajustables desde Tweaks › Campaña.
+    const start = new Date(this.props.campaignStart ?? '2026-11-09T00:00:00-05:00').getTime();
+    const end = new Date(this.props.campaignEnd ?? '2026-11-27T23:59:59-05:00').getTime();
+    const now = Date.now();
+    const isBefore = now < start, isOver = now > end, isLive = !isBefore && !isOver;
+    const diff = isLive ? Math.max(0, end - now) : 0;
+    const pad = (n) => String(n).padStart(2, '0');
+    const units = [
+      { value: pad(Math.floor(diff / 86400000)), label: 'Días' },
+      { value: pad(Math.floor((diff % 86400000) / 3600000)), label: 'Horas' },
+      { value: pad(Math.floor((diff % 3600000) / 60000)), label: 'Min' },
+      { value: pad(Math.floor((diff % 60000) / 1000)), label: 'Seg' }
+    ];
+    let startLabel = '9 de noviembre';
+    try { startLabel = new Date(start).toLocaleDateString('es-CO', { day: 'numeric', month: 'long', timeZone: 'America/Bogota' }); } catch (e) {}
+
+    const st = this.state || {};
+    const CITY = { BOG: 'Bogotá', MDE: 'Medellín', CLO: 'Cali', BAQ: 'Barranquilla' };
+    const KEY = { europa: 'eu', tailandia: 'th', turquia: 'tr', mas: 'ma' };
+    const extras = this.extras();
+    const all = this.data().map((p) => Object.assign({ flyers: [], foto: '', noches: '', recorrido: '', urgency: '' }, p, extras[p.id] || {}, { akiclic: this.akiclicUrl(), panelKey: KEY[p.destino] }));
+    const seenCat = {};
+    const view = all.map((p) => {
+      const isOpen = st.open === p.id;
+      let urgency = p.urgency;
+      if (!urgency && showUrgencyDemo && !seenCat[p.destino]) urgency = '¡Últimos cupos!';
+      seenCat[p.destino] = true;
+      const cs = ['BOG', 'MDE', 'CLO', 'BAQ'].filter((c) => p.salidas.some((s) => s[0] === c)).map((c) => CITY[c]);
+      const ciudadesTxt = cs.length > 1 ? cs.slice(0, -1).join(', ') + ' y ' + cs[cs.length - 1] : cs[0];
+      const n = p.salidas.length;
+      const first = this.shortMonth(p.salidas[0][2]), last = this.shortMonth(p.salidas[n - 1][2]);
+      const stops = [];
+      (p.recorrido || '').split(',').map((x) => x.replace(/\s+\d+N\s*$/, '').trim()).filter(Boolean).forEach((c) => { if (stops[stops.length - 1] !== c && (stops.length === 0 || c !== stops[0] || stops.length < 3)) stops.push(c); });
+      const uniq = stops.filter((c, i) => stops.indexOf(c) === i);
+      const ciudadesRecorrido = uniq.length > 7 ? uniq.slice(0, 7).join(', ') + ' y ' + (uniq.length - 7) + ' más' : uniq.join(', ');
+      return Object.assign({}, p, {
+        hasFoto: !!p.foto, noFoto: !p.foto,
+        nochesTxt: p.noches || '[X]',
+        hasRecorrido: !!p.recorrido, ciudadesRecorrido,
+        ciudadesTxt,
+        totalTxt: n + (n === 1 ? ' fecha' : ' fechas'),
+        rangoTxt: first === last ? first : first + ' – ' + last,
+        desdeTxt: this.money(p.desde), refTxt: this.usd(p.referencia),
+        showNew: showNewTag && p.nuevo,
+        expanded: isOpen ? 'true' : 'false',
+        ring: isOpen ? accent : '#E2E7F5',
+        datesLabel: isOpen ? 'Ocultar fechas' : 'Ver fechas ›',
+        datesBg: isOpen ? accent : '#FFFFFF',
+        datesColor: isOpen ? '#FFFFFF' : '#0A0F2C',
+        datesBorder: isOpen ? accent : '#C9D3F2',
+        hasUrgency: !!urgency, urgency,
+        toggle: () => this.openDates(p),
+        openFlyer: () => this.setState({ flyer: p.id, flyerIdx: 0 })
+      });
+    });
+    const by = (d) => view.filter((p) => p.destino === d);
+    const openP = all.find((p) => p.id === st.open);
+    const empty = { nombre: '', resumen: '', tabs: [], meses: [] };
+    const panelFor = (k) => (openP && openP.panelKey === k) ? this.buildPanel(openP, accent, showFlags) : empty;
+    const fp = all.find((p) => p.id === st.flyer);
+    let flyer = { name: '', src: '', hasImage: false, missing: false, tabs: [] };
+    if (fp) {
+      const list = fp.flyers || [];
+      const idx = Math.min(st.flyerIdx || 0, Math.max(list.length - 1, 0));
+      const cur = list[idx];
+      flyer = {
+        name: fp.nombre, src: cur ? cur.src : '', hasImage: !!cur, missing: !cur,
+        tabs: list.length > 1 ? list.map((f, i) => ({
+          label: 'Desde ' + f.ciudad, pressed: i === idx ? 'true' : 'false',
+          bg: i === idx ? accent : '#FFFFFF', fg: i === idx ? '#FFFFFF' : '#0A0F2C', border: i === idx ? accent : '#C9D3F2',
+          select: () => this.setState({ flyerIdx: i })
+        })) : []
+      };
+    }
+    const europa = by('europa'), tailandia = by('tailandia'), turquia = by('turquia'), mas = by('mas');
+    return {
+      accent, units, isBefore, isLive, isOver, startLabel,
+      europa, tailandia, turquia, mas,
+      europaCount: europa.length, tailandiaCount: tailandia.length, turquiaCount: turquia.length, masCount: mas.length,
+      europaPaquetesTxt: europa.length + (europa.length === 1 ? ' paquete en promoción' : ' paquetes en promoción'),
+      tailandiaPaquetesTxt: tailandia.length + (tailandia.length === 1 ? ' paquete en promoción' : ' paquetes en promoción'),
+      turquiaPaquetesTxt: turquia.length + (turquia.length === 1 ? ' paquete en promoción' : ' paquetes en promoción'),
+      euOpen: !!(openP && openP.panelKey === 'eu'), thOpen: !!(openP && openP.panelKey === 'th'),
+      trOpen: !!(openP && openP.panelKey === 'tr'), maOpen: !!(openP && openP.panelKey === 'ma'),
+      euPanel: panelFor('eu'), thPanel: panelFor('th'), trPanel: panelFor('tr'), maPanel: panelFor('ma'),
+      closePanel: () => this.setState({ open: null }),
+      termsOpen: !!st.terms, termsExpanded: st.terms ? 'true' : 'false', termsIcon: st.terms ? '−' : '+',
+      toggleTerms: () => this.setState({ terms: !st.terms }),
+      flyerOpen: !!fp, flyer,
+      closeFlyer: () => this.setState({ flyer: null })
+    };
+  }
+}
+</script>
+</body>
+</html>

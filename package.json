@@ -1,0 +1,12 @@
+{
+  "name": "black-days-akira",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Landing Black Days 2026 · Akira Travel",
+  "scripts": {
+    "build": "node tools/build.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
